@@ -47,6 +47,9 @@ Colors:
 .addl_notes {
 	margin-top: 20px;
 }
+.addl_notes2 {
+	margin-top: 20px;
+}
 
 .margin_label {
 	display:inline-block;
@@ -56,6 +59,10 @@ Colors:
 .submit_notes {
 	 margin-top:15px;
 	 margin-bottom:15px;
+}
+
+#txtEditor {
+	margin-bottom:15px;
 }
 
 .help-block{

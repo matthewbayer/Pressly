@@ -18,51 +18,53 @@
 
     <div class="form-content">
         <div class="container-fluid">
-            <div class="row justify-content-center">
-                <div class="col-lg-5 col-xl-5 notes_col">
-                    <div class="form-horizontal">
-                        <div class="form-body">
-                            <div class="form-group">
-                                <label class="h3 control-label col-md-5 margin_label">Press Release Notes</label>
-                                <div class="col-md-auto fields">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control addl_notes" maxlength="50" placeholder = "Added 500 customers in the past year..."/>
-                                        <div class="input-group-append">
-                                            <button class="btn btn-success add-field fixed-width newsletter_note addl_notes" id="basic-addon">+</button>
+            <form method="POST" id="logInForm" data-toggle="validator" data-focus="false">
+                {% csrf_token %}
+                <div class="row justify-content-center"> 
+                    <div class="col-lg-5 col-xl-5 notes_col">
+                        <div class="form-horizontal">
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label class="h3 control-label col-md-5 margin_label">Press Release Notes</label>
+                                    <div class="col-md-auto fields">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control addl_notes" maxlength="200" placeholder = "Added 500 customers in the past year..."/>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-success add-field fixed-width newsletter_note addl_notes" id="basic-addon">+</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <span class="help-block">Max 10 notes, 200 characters each - less is more!</span>
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary next-step submit_notes">Submit</button>
+                                        <span class="help-block" id="help-block">Max 10 notes, 200 characters each - less is more!</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div> <!-- end of form -->
-                </div> <!-- end of col -->
-                <div class="col-lg-5 col-xl-5 notes_col">
-                    <div class="form-horizontal">
-                        <div class="form-body">
-                            <div class="form-group">
-                                <label class="h3 control-label col-md-5 margin_label">Company Description</label>
-                                <div class="col-md-auto fields">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control addl_notes" maxlength="50" placeholder = "Acme Inc. is a multinational corporation serving..."/>
-                                        <div class="input-group-append">
-                                            <button class="btn btn-success add-field2 fixed-width newsletter_note addl_notes" id="basic-addon">+</button>
+                    </div> <!-- end of col -->
+                    <div class="col-lg-5 col-xl-5 notes_col">
+                        <div class="form-horizontal">
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label class="h3 control-label col-md-5 margin_label">Company Description</label>
+                                    <div class="col-md-auto fields2">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control addl_notes" maxlength="200" placeholder = "Acme Inc. is a multinational corporation serving..."/>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-success add-field2 fixed-width newsletter_note addl_notes" id="basic-addon">+</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <span class="help-block">Max 5 notes, 200 characters each - less is more!</span>
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary next-step submit_notes">Submit</button>
+                                        <span class="help-block" id="help-block2">Max 5 descriptions, 200 characters each - less is more!</span>
+                                        
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div> <!-- end of form -->
-                </div> <!-- end of col -->
-                
-            </div> <!-- end of row -->
+                        </div> 
+                    </div> <!-- end of col -->
+                </div> <!-- end of row -->
+                <div class="row justify-content-center">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary next-step submit_notes">Generate Text</button>
+                    </div>
+                </div> <!-- end of row -->
+            </form> <!-- end of form -->
             <div class="row justify-content-center">
                 <div class="col-lg-7 col-xl-7 texteditor_col">
                         <textarea id="txtEditor"></textarea>
