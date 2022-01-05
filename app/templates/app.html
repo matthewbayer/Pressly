@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block css %}
+    <link href= "{% static 'css/editor.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block content %}
+
+    <!-- Header -->
+    <header id="header" class="header">
+        <div class="header-content-app">
+
+        </div> <!-- end of header-content -->
+    </header> <!-- end of header -->
+       <!-- end of header -->
+
+    <div class="form-content">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-lg-5 col-xl-5 notes_col">
+                    <div class="form-horizontal">
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label class="h3 control-label col-md-5 margin_label">Press Release Notes</label>
+                                <div class="col-md-auto fields">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control addl_notes" maxlength="50" placeholder = "Added 500 customers in the past year..."/>
+                                        <div class="input-group-append">
+                                            <button class="btn btn-success add-field fixed-width newsletter_note addl_notes" id="basic-addon">+</button>
+                                        </div>
+                                    </div>
+                                    <span class="help-block">Max 10 notes, 200 characters each - less is more!</span>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary next-step submit_notes">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- end of form -->
+                </div> <!-- end of col -->
+                <div class="col-lg-5 col-xl-5 notes_col">
+                    <div class="form-horizontal">
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label class="h3 control-label col-md-5 margin_label">Company Description</label>
+                                <div class="col-md-auto fields">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control addl_notes" maxlength="50" placeholder = "Acme Inc. is a multinational corporation serving..."/>
+                                        <div class="input-group-append">
+                                            <button class="btn btn-success add-field2 fixed-width newsletter_note addl_notes" id="basic-addon">+</button>
+                                        </div>
+                                    </div>
+                                    <span class="help-block">Max 5 notes, 200 characters each - less is more!</span>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary next-step submit_notes">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- end of form -->
+                </div> <!-- end of col -->
+                
+            </div> <!-- end of row -->
+            <div class="row justify-content-center">
+                <div class="col-lg-7 col-xl-7 texteditor_col">
+                        <textarea id="txtEditor"></textarea>
+                </div> <!-- end of col -->
+            </div>
+        </div> <!-- end of container -->
+    </div> <!-- end of form content -->
+{% endblock %}
+
+{% block scripts %}
+{{ block.super }}
+    <script src="{% static 'js/editor.js' %}"></script> <!-- Text Editor -->
+{% endblock %}
+
+                            <!--<div class="form-actions right">
+                                    <div class="row">
+                                        <div class="col-md-offset-3 col-md-9">
+                                            <button type="button" class="btn btn-primary next-step submit_notes">
+                                                Submit
+                                            </button>
+                                        </div>
+                                    </div>
+                            </div>-->
