@@ -286,7 +286,7 @@
     }
 
 
-    /* Newsletter Form */
+    /* Newsletter Form 
     $("#newsletterForm").validator().on("submit", function(event) {
     	if (event.isDefaultPrevented()) {
             // handle the invalid form...
@@ -328,7 +328,7 @@
         $("#newsletterForm").removeClass().addClass('shake animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
             $(this).removeClass();
         });
-	}
+	}*/
 
     function nsubmitMSG(valid, msg) {
         if (valid) {
@@ -423,12 +423,10 @@
 
     var max_pr_notes = 10;
     var last_placeholder = 1;
-    var template = '<div class="input-group"><input type="text" class="form-control  newsletter_note addl_notes" maxlength="50"></div>';
+    var template = '<div class="input-group"><input type="text" name="pr_details" class="form-control  newsletter_note addl_notes" maxlength="50"></div>';
     var minusButton = '<div class="input-group-append"><button class="btn btn-danger delete-field fixed-width addl_notes newsletter_note" id="basic-addon">-</button></div>';
     var plusButton =  '<div class="input-group-append"><button class="btn btn-success add-field fixed-width addl_notes newsletter_note" id="basic-addon">+</button></div>';
     var pressrelease_placeholders = ["Added 500 customers in the past year...", "Raised a Series C...", "Hired 30 new employees...", "Quote from CEO...", "Reached $1 million in revenue...", "Closed 3 new partnerships..."];
-    var pressrelease_placeholders = ["Added 500 customers in the past year...", "Raised a Series C...", "Hired 30 new employees...", "Quote from CEO...", "Reached $1 million in revenue...", "Closed 3 new partnerships..."];
-
 
 
     $('.fields').on('click', ".add-field", function() {
@@ -437,7 +435,7 @@
         var buttonToChange = inputs[inputs.length - 1];
         $(buttonToChange).replaceWith($(minusButton));
 
-        var temp = $(template).insertBefore('.help-block');
+        var temp = $(template).insertBefore('#help-block');
         var input_box = temp[0].childNodes[0];
         console.log(num_notes);
         input_box.setAttribute("placeholder", pressrelease_placeholders[last_placeholder]);
@@ -460,6 +458,52 @@
             var minuses = document.getElementsByClassName('delete-field');
             var buttonToChange = minuses[minuses.length - 1];
             $(buttonToChange).replaceWith($(plusButton));
+        }
+
+    });
+
+
+    var max_company_notes = 5;
+    var last_company_placeholder = 1;
+    var company_template = '<div class="input-group"><input type="text" name="company_description" class="form-control  newsletter_note addl_notes2" maxlength="50"></div>';
+    var minusCompanyButton = '<div class="input-group-append"><button class="btn btn-danger delete-field2 fixed-width addl_notes2 newsletter_note" id="basic-addon">-</button></div>';
+    var plusCompanyButton =  '<div class="input-group-append"><button class="btn btn-success add-field2 fixed-width addl_notes2 newsletter_note" id="basic-addon">+</button></div>';
+    var company_placeholders = ["Acme Inc. is a multinational corporation serving...", "ABC Technologies is a Boston-based technology company...", "XYZ, LLC delivers widgets to..."];
+    
+    /* Add additional text inputs for newsletter notes*/
+     function getCompanyNoteCount() {
+        return document.getElementsByClassName('form-control addl_notes2').length;
+    }
+
+    $('.fields2').on('click', ".add-field2", function() {
+        var num_notes = getCompanyNoteCount();
+        var inputs = document.getElementsByClassName('add-field2');
+        var buttonToChange = inputs[inputs.length - 1];
+        $(buttonToChange).replaceWith($(minusCompanyButton));
+
+        var temp = $(company_template).insertBefore('#help-block2');
+        var input_box = temp[0].childNodes[0];
+        console.log(num_notes);
+        input_box.setAttribute("placeholder", company_placeholders[last_placeholder]);
+        last_placeholder = (last_placeholder + 1) % company_placeholders.length;
+        if (num_notes + 1 == max_company_notes){
+            temp.append(minusCompanyButton);
+        }
+        else{
+            temp.append(plusCompanyButton);
+        }
+    });
+
+    $('.fields2').on('click', '.delete-field2', function(){
+        console.log($(this).closest('.input-group'));
+        $(this).closest('.input-group').remove();
+        var plusses = document.getElementsByClassName('add-field2');
+
+        /* If we've just deleted the last note possible, re-add the plus button */
+        if (plusses.length == 0){
+            var minuses = document.getElementsByClassName('delete-field2');
+            var buttonToChange = minuses[minuses.length - 1];
+            $(buttonToChange).replaceWith($(plusCompanyButton));
         }
 
     });

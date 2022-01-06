@@ -18,3 +18,22 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.email
+
+class NewsletterSubscription(models.Model):
+    email = models.EmailField()
+    REQUIRED_FIELDS = ["email"]
+
+    def __str__(self):
+        return self.email
+
+class PressReleaseSubmission(models.Model):
+    generated_text = models.TextField()
+    submission_date = models.DateTimeField()
+    user = models.ForeignKey(CustomUser, null=True, on_delete=models.SET_NULL, verbose_name="user who submitted")
+    rating = models.BooleanField()
+    REQUIRED_FIELDS = ["generated_text", "submission_date", "user"]
+
+    class Meta:
+        ordering = ['-submission_date', "user"]
+
+
