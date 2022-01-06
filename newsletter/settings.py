@@ -127,3 +127,12 @@ STATIC_ROOT = os.path.join(BASE_DIR, "app", "static")
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Text generation settings
+text_gen_parameters = {
+    "top_p": 1,
+    "temperature": 0.7,
+    "repetition_penalty": 1.03,
+    "top_k" : 250,
+    "max_length" : 700
+}

@@ -286,7 +286,7 @@
     }
 
 
-    /* Newsletter Form */
+    /* Newsletter Form 
     $("#newsletterForm").validator().on("submit", function(event) {
     	if (event.isDefaultPrevented()) {
             // handle the invalid form...
@@ -328,7 +328,7 @@
         $("#newsletterForm").removeClass().addClass('shake animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
             $(this).removeClass();
         });
-	}
+	}*/
 
     function nsubmitMSG(valid, msg) {
         if (valid) {
@@ -423,7 +423,7 @@
 
     var max_pr_notes = 10;
     var last_placeholder = 1;
-    var template = '<div class="input-group"><input type="text" class="form-control  newsletter_note addl_notes" maxlength="50"></div>';
+    var template = '<div class="input-group"><input type="text" name="pr_details" class="form-control  newsletter_note addl_notes" maxlength="50"></div>';
     var minusButton = '<div class="input-group-append"><button class="btn btn-danger delete-field fixed-width addl_notes newsletter_note" id="basic-addon">-</button></div>';
     var plusButton =  '<div class="input-group-append"><button class="btn btn-success add-field fixed-width addl_notes newsletter_note" id="basic-addon">+</button></div>';
     var pressrelease_placeholders = ["Added 500 customers in the past year...", "Raised a Series C...", "Hired 30 new employees...", "Quote from CEO...", "Reached $1 million in revenue...", "Closed 3 new partnerships..."];
@@ -440,7 +440,7 @@
         console.log(num_notes);
         input_box.setAttribute("placeholder", pressrelease_placeholders[last_placeholder]);
         last_placeholder = (last_placeholder + 1) % pressrelease_placeholders.length;
-        if (num_notes == max_pr_notes){
+        if (num_notes + 1 == max_pr_notes){
             temp.append(minusButton);
         }
         else{
@@ -463,9 +463,9 @@
     });
 
 
-    var max_company_notes = 3;
+    var max_company_notes = 5;
     var last_company_placeholder = 1;
-    var company_template = '<div class="input-group"><input type="text" class="form-control  newsletter_note addl_notes2" maxlength="50"></div>';
+    var company_template = '<div class="input-group"><input type="text" name="company_description" class="form-control  newsletter_note addl_notes2" maxlength="50"></div>';
     var minusCompanyButton = '<div class="input-group-append"><button class="btn btn-danger delete-field2 fixed-width addl_notes2 newsletter_note" id="basic-addon">-</button></div>';
     var plusCompanyButton =  '<div class="input-group-append"><button class="btn btn-success add-field2 fixed-width addl_notes2 newsletter_note" id="basic-addon">+</button></div>';
     var company_placeholders = ["Acme Inc. is a multinational corporation serving...", "ABC Technologies is a Boston-based technology company...", "XYZ, LLC delivers widgets to..."];
@@ -486,7 +486,7 @@
         console.log(num_notes);
         input_box.setAttribute("placeholder", company_placeholders[last_placeholder]);
         last_placeholder = (last_placeholder + 1) % company_placeholders.length;
-        if (num_notes == max_company_notes){
+        if (num_notes + 1 == max_company_notes){
             temp.append(minusCompanyButton);
         }
         else{
