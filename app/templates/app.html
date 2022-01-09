@@ -16,16 +16,15 @@
     </header> <!-- end of header -->
        <!-- end of header -->
 
-    <div class="form-content">
+    <div class="form-content" style="padding-bottom:50px;">
         <div class="container-fluid">
-            <form method="POST" id="logInForm" data-toggle="validator" data-focus="false">
-                {% csrf_token %}
+            <form id="text_input" data-toggle="validator" data-focus="false">
                 <div class="row justify-content-center"> 
                     <div class="col-lg-5 col-xl-5 notes_col">
                         <div class="form-horizontal">
                             <div class="form-body">
                                 <div class="form-group">
-                                    <label class="h3 control-label col-md-5 margin_label">Press Release Notes</label>
+                                    <label class="h3 control-label col-md-8 margin_label">Press Release Notes</label>
                                     <div class="col-md-auto fields">
                                         <div class="input-group">
                                             <input type="text" name="pr_details" class="form-control addl_notes" maxlength="200" placeholder = "Added 500 customers in the past year..."/>
@@ -43,7 +42,7 @@
                         <div class="form-horizontal">
                             <div class="form-body">
                                 <div class="form-group">
-                                    <label class="h3 control-label col-md-5 margin_label">Company Description</label>
+                                    <label class="h3 control-label col-md-8 margin_label">Company Description</label>
                                     <div class="col-md-auto fields2">
                                         <div class="input-group">
                                             <input type="text" name="company_description" class="form-control addl_notes2" maxlength="200" placeholder = "Acme Inc. is a multinational corporation serving..."/>
@@ -58,23 +57,29 @@
                         </div> 
                     </div> <!-- end of col -->
                 </div> <!-- end of row -->
-                <div class="row justify-content-center">
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary next-step submit_notes">Generate Text</button>
-                    </div>
-                </div> <!-- end of row -->
-                <div class="row justify-content-center">
-                    <div class="help-block with-errors">
-                        <p style="color: grey">Uses 1 generation credit. Credits left: {{credits}}</p>
-                        {% if error %}
-                            <b><p style="color: grey">{{ error }}</p></b>
-                        {% endif %}
-                    </div>
-                </div>
             </form> <!-- end of form -->
+
             <div class="row justify-content-center">
-                <div class="col-lg-7 col-xl-7 texteditor_col">
-                        <textarea id="txtEditor"></textarea>
+                <button id="generate-btn" class="btn btn-primary next-step submit_notes"{% if disabled %} disabled {%endif%}>Generate Text</button>
+                
+                <div class="form-group">
+                    </div>
+            </div> <!-- end of row -->
+            <div class="row justify-content-center">
+                <div class="help-block with-errors">
+                    {% if disabled %}
+                        <p style="color: red">Out of generation credits. Increase your plan or contact support.</p>
+                    {% else %}
+                        <p id="credits_left" style="color: grey">Uses 1 generation credit. Credits left: {{credits}}</p>
+                    {% endif %}
+                    {% if error %}
+                        <b><p style="color: grey">{{ error }}</p></b>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-xl-8 texteditor_col">
+                        <textarea id="txtEditor" placeholder="Your content will appear here..."></textarea>
                 </div><!-- end of col -->
             </div>
         </div> <!-- end of container -->
@@ -83,6 +88,7 @@
 
 {% block scripts %}
 {{ block.super }}
-    <script src="{% static 'js/editor.js' %}"></script> <!-- Text Editor -->
+    <!--<script src="{% static 'js/editor.js' %}"></script>  Text Editor -->\
+    <script src="{% static 'js/textgen.js' %}"></script> <!-- Text API Stuff -->
 {% endblock %}
 

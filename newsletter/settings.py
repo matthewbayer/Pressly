@@ -129,10 +129,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, "app", "static")
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Text generation settings
-text_gen_parameters = {
+TEXT_GEN_PARAMETERS = {
     "top_p": 1,
     "temperature": 0.7,
     "repetition_penalty": 1.03,
     "top_k" : 250,
-    "max_length" : 700
+    #"max_length" : 700
+    "max_length": 300
 }

@@ -6,9 +6,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 import os
+import requests
 
 from .forms import CustomUserCreationForm, SubscriptionForm
-from .models import NewsletterSubscription
+from .models import NewsletterSubscription, CustomUser
+from .generate_pr import get_pr_prompt, generate_from_prompt
 
 def generate_context(request, extra=None):
     logged_in = request.user.is_authenticated
@@ -35,14 +37,30 @@ def app(request):
         if not request.user.is_authenticated:
             return render(request, 'log-in.html', generate_context(request))
         else:
-            return render(request, 'app.html', generate_context(request, {"credits":request.user.num_credits}))
+            return render(request, 'app.html', generate_context(request, {"credits":request.user.num_credits, "disabled":request.user.num_credits==0}))
     elif request.method == "POST":
-        print(request.__dict__)
         if not request.user.is_authenticated:
             return render(request, 'log-in.html', generate_context(request))
         else:
-            return render(request, 'app.html', generate_context(request, {"credits":request.user.num_credits}))
+            # wat u doin here
+            if request.user.num_credits == 0:
+                return HttpResponseRedirect('/')
 
+            prompt = get_pr_prompt(request)
+            try:
+                #content = generate_from_prompt(prompt)
+                content = {"generated_text": "absdlgihsdkgh\nasdasfas\n\nasfsdfgsabsdlgihsdkgh\nasdasfas\n\nasfsdfgsabsdlgihsdkgh\nasdasfas\n\nasfsdfgsabsdlgihsdkgh\nasdasfas\n\nasfsdfgsabsdlgihsdkgh\nasdasfas\n\nasfsdfgsabsdlgihsdkgh\nasdasfas\n\nasfsdfgsabsdlgihsdkgh\nasdasfas\n\nasfsdfgsabsdlgihsdkgh\nasdasfas\n\nasfsdfgsabsdlgihsdkgh\nasdasfas\n\nasfsdfgs"}
+                user = CustomUser.objects.filter(email=request.user.email)
+                user.update(num_credits=request.user.num_credits-1)
+            except requests.exceptions.RequestException as e:
+                content = {"generated_text": "An error occurred generating your content. Please try again."}
+                print(e)
+
+            content["generated_text"] = content["generated_text"].replace("\n", "\n")
+            content["num_credits"] = request.user.num_credits
+
+            return JsonResponse(content)
+            
 def log_in(request):
     if request.method == "GET":
         return render(request, 'log-in.html', generate_context(request))

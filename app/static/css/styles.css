@@ -61,7 +61,12 @@ Colors:
 }
 
 #txtEditor {
-	margin-bottom:15px;
+	display:block;
+	min-width:500px;
+	max-width:100%;
+	min-height:250px;
+	height:100%;
+	width:100%;
 }
 
 .help-block{
