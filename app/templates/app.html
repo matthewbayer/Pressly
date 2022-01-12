@@ -6,6 +6,9 @@
     <link href= "{% static 'css/editor.css' %}" rel="stylesheet" type="text/css">
 {% endblock %}
 
+{% block app %}
+{% endblock %}
+
 {% block content %}
 
     <!-- Header -->
@@ -19,7 +22,7 @@
     <div class="form-content" style="padding-bottom:50px;">
         <div class="container-fluid">
             <form id="text_input" data-toggle="validator" data-focus="false">
-                <div class="row justify-content-center"> 
+                <div class="row justify-content-center">
                     <div class="col-lg-5 col-xl-5 notes_col">
                         <div class="form-horizontal">
                             <div class="form-body">
@@ -60,21 +63,22 @@
             </form> <!-- end of form -->
 
             <div class="row justify-content-center">
-                <button id="generate-btn" class="btn btn-primary next-step submit_notes"{% if disabled %} disabled {%endif%}>Generate Text</button>
-                
-                <div class="form-group">
-                    </div>
+                <div class="col-lg-2 col-xl-2">
+                    <button id="generate-btn" class="btn btn-primary next-step submit_notes"{% if disabled %} disabled {%endif%}>Generate Text</button>
+                </div>
             </div> <!-- end of row -->
             <div class="row justify-content-center">
-                <div class="help-block with-errors">
-                    {% if disabled %}
-                        <p style="color: red">Out of generation credits. Increase your plan or contact support.</p>
-                    {% else %}
-                        <p id="credits_left" style="color: grey">Uses 1 generation credit. Credits left: {{credits}}</p>
-                    {% endif %}
-                    {% if error %}
-                        <b><p style="color: grey">{{ error }}</p></b>
-                    {% endif %}
+                <div class="col-lg-3 col-xl-3">
+                    <div class="help-block with-errors">
+                        {% if disabled %}
+                            <p style="color: red">Out of generation credits. Increase your plan or contact support.</p>
+                        {% else %}
+                            <p id="credits_left" style="color: grey">Uses 1 generation credit. Credits left: {{credits}}</p>
+                        {% endif %}
+                        {% if error %}
+                            <b><p style="color: grey">{{ error }}</p></b>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
             <div class="row justify-content-center">

@@ -30,36 +30,40 @@ def index(request):
         else:
             return render(request, 'index.html', generate_context(request, {'form': form}))
     
-
 @login_required(login_url='/login/')
 def app(request):
     if request.method == "GET":
-        if not request.user.is_authenticated:
-            return render(request, 'log-in.html', generate_context(request))
-        else:
-            return render(request, 'app.html', generate_context(request, {"credits":request.user.num_credits, "disabled":request.user.num_credits==0}))
+        return render(request, 'app_landing_page.html', generate_context(request))
+
+@login_required(login_url='/login/')
+def press_release(request):
+    if request.method == "GET":
+        #if not request.user.is_authenticated:
+        #    return render(request, 'log-in.html', generate_context(request))
+        #else:
+        return render(request, 'app.html', generate_context(request, {"credits":request.user.num_credits, "disabled":request.user.num_credits==0}))
     elif request.method == "POST":
-        if not request.user.is_authenticated:
-            return render(request, 'log-in.html', generate_context(request))
-        else:
-            # wat u doin here
-            if request.user.num_credits == 0:
-                return HttpResponseRedirect('/')
+        #if not request.user.is_authenticated:
+        #    return render(request, 'log-in.html', generate_context(request))
+        #else:
+        # wat u doin here
+        if request.user.num_credits == 0:
+            return HttpResponseRedirect('/')
 
-            prompt = get_pr_prompt(request)
-            try:
-                #content = generate_from_prompt(prompt)
-                content = {"generated_text": "absdlgihsdkgh\nasdasfas\n\nasfsdfgsabsdlgihsdkgh\nasdasfas\n\nasfsdfgsabsdlgihsdkgh\nasdasfas\n\nasfsdfgsabsdlgihsdkgh\nasdasfas\n\nasfsdfgsabsdlgihsdkgh\nasdasfas\n\nasfsdfgsabsdlgihsdkgh\nasdasfas\n\nasfsdfgsabsdlgihsdkgh\nasdasfas\n\nasfsdfgsabsdlgihsdkgh\nasdasfas\n\nasfsdfgsabsdlgihsdkgh\nasdasfas\n\nasfsdfgs"}
-                user = CustomUser.objects.filter(email=request.user.email)
-                user.update(num_credits=request.user.num_credits-1)
-            except requests.exceptions.RequestException as e:
-                content = {"generated_text": "An error occurred generating your content. Please try again."}
-                print(e)
+        prompt = get_pr_prompt(request)
+        try:
+            content = generate_from_prompt(prompt)
+            #content = {"generated_text": "test conent\n\testing\nasdasfas\n\nabc123"}
+            user = CustomUser.objects.filter(email=request.user.email)
+            user.update(num_credits=request.user.num_credits-1)
+        except requests.exceptions.RequestException as e:
+            content = {"generated_text": "An error occurred generating your content. Please try again."}
+            print(e)
 
-            content["generated_text"] = content["generated_text"].replace("\n", "\n")
-            content["num_credits"] = request.user.num_credits
+        content["generated_text"] = content["generated_text"].replace("\n", "\n")
+        content["num_credits"] = request.user.num_credits
 
-            return JsonResponse(content)
+        return JsonResponse(content)
             
 def log_in(request):
     if request.method == "GET":
@@ -92,7 +96,7 @@ def sign_up(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/app/')
         else:
             return render(request, 'sign-up.html', generate_context(request, {'form': form}))
             

@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 from .managers import CustomUserManager
 
 class CustomUser(AbstractUser):
-    num_credits = models.IntegerField(default=0)
+    num_credits = models.IntegerField(default=10)
     email = models.EmailField(unique=True)
     username = None
 

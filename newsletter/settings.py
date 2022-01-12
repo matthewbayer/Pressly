@@ -135,5 +135,5 @@ TEXT_GEN_PARAMETERS = {
     "repetition_penalty": 1.03,
     "top_k" : 250,
     #"max_length" : 700
-    "max_length": 300
+    "max_length": 500
 }

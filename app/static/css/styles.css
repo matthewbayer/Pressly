@@ -60,6 +60,30 @@ Colors:
 	 margin-top:15px;
 }
 
+#suggestionSubmit {
+	max-width: 40%
+}
+
+.link-gray:link{
+	color:gray;
+	text-decoration: none
+}
+
+.link-gray:hover{
+	color:black;
+}
+
+ul a {
+	text-decoration: none;
+	color: inherit;
+}
+
+#examplesAccordion{
+	max-width:1400px;
+	max-width:80%;
+	accordion-padding-x:22rem;
+}
+
 #txtEditor {
 	display:block;
 	min-width:500px;
@@ -69,11 +93,26 @@ Colors:
 	width:100%;
 }
 
+#sidebar-wrapper{
+	width:25%;
+	margin-right:0;
+	display:inline-block;
+	margin-left:0;
+}
+
+#sidebar-wrapper .sidebar-header {
+	padding: 0.875rem 1.25rem;
+	font-size: 1.2rem;
+}
+
+.main{
+	display:inline-block;
+}
+
 .help-block{
 	display:inline-block;
 	padding-top:10px;
 }
-
 
 body,
 html {
@@ -714,7 +753,7 @@ input[type='checkbox'] {
 
 .navbar-custom .navbar-brand.logo-image img {
     width: 4.4375rem;
-	height: 1.75rem;
+		height: 1.75rem;
 }
 
 .navbar-custom .navbar-brand.logo-text {
@@ -860,7 +899,7 @@ input[type='checkbox'] {
 
 .header .header-content-app {
 	padding-top: 4rem;
-	padding-bottom: 2rem;
+	/*padding-bottom: 2rem;*/
 	text-align: center;
 }
 
