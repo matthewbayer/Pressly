@@ -11,83 +11,50 @@
 
 {% block content %}
 
-    <!-- Header -->
-    <header id="header" class="header">
-        <div class="header-content-app">
+<!-- Header -->
+<header id="header" class="header">
+    <div class="header-content-app">
 
-        </div> <!-- end of header-content -->
-    </header> <!-- end of header -->
-       <!-- end of header -->
+    </div> <!-- end of header-content -->
+</header> <!-- end of header -->
+    <!-- end of header -->
 
-    <div class="form-content" style="padding-bottom:50px;">
-        <div class="container-fluid">
-            <form id="text_input" data-toggle="validator" data-focus="false">
-                <div class="row justify-content-center">
-                    <div class="col-lg-5 col-xl-5 notes_col">
-                        <div class="form-horizontal">
-                            <div class="form-body">
-                                <div class="form-group">
-                                    <label class="h3 control-label col-md-8 margin_label">Press Release Notes</label>
-                                    <div class="col-md-auto fields">
-                                        <div class="input-group">
-                                            <input type="text" name="pr_details" class="form-control addl_notes" maxlength="200" placeholder = "Added 500 customers in the past year..."/>
-                                            <div class="input-group-append">
-                                                <button class="btn btn-success add-field fixed-width newsletter_note addl_notes" id="basic-addon">+</button>
-                                            </div>
-                                        </div>
-                                        <span class="help-block" id="help-block">Max 10 notes, 200 characters each - less is more!</span>
-                                    </div>
-                                </div>
-                            </div>
+<div class="form-content" style="padding-bottom:50px;">
+    <div class="container">
+        <form id="text_input" data-toggle="validator" data-focus="false">
+            <div class="row justify-content-center" style="padding-top:15px;">
+                <div class = "col-sm-10">
+                    <div class="form-box d-flex align-items-center">
+                        <label class="h3 control-label col-md-8 margin_label">Company Description</label>
+                        <textarea name="company_description" class="form-control addl_notes2 custom-editor" maxlength="1000" placeholder = "Acme Inc. is a multinational corporation serving..."/></textarea>
+                        <span class="help-block" id="help-block">Max 1000 characters</span>
+                        <br>
+                        <label class="h3 control-label col-md-8 margin_label">Press Release Notes</label>
+                        <textarea name="pr_details" class="form-control addl_notes custom-editor" maxlength="300" placeholder = "Added 500 customers in the past year..."></textarea>
+                        <span class="help-block" id="help-block">Max 300 characters</span>
+                        <button id="generate-btn" class="btn btn-primary next-step submit_notes"{% if disabled %} disabled {%endif%}>Generate Text</button>
+                        <div class="help-block with-errors">
+                                {% if disabled %}
+                                    <p style="color: red">Out of generation credits. Increase your plan or contact support.</p>
+                                {% else %}
+                                    <p id="credits_left" style="color: grey">Uses 1 generation credit. Credits left: {{credits}}</p>
+                                {% endif %}
+                                {% if error %}
+                                    <b><p style="color: grey">{{ error }}</p></b>
+                                {% endif %}
                         </div>
-                    </div> <!-- end of col -->
-                    <div class="col-lg-5 col-xl-5 notes_col">
-                        <div class="form-horizontal">
-                            <div class="form-body">
-                                <div class="form-group">
-                                    <label class="h3 control-label col-md-8 margin_label">Company Description</label>
-                                    <div class="col-md-auto fields2">
-                                        <div class="input-group">
-                                            <input type="text" name="company_description" class="form-control addl_notes2" maxlength="200" placeholder = "Acme Inc. is a multinational corporation serving..."/>
-                                            <div class="input-group-append">
-                                                <button class="btn btn-success add-field2 fixed-width newsletter_note addl_notes2" id="basic-addon">+</button>
-                                            </div>
-                                        </div>
-                                        <span class="help-block" id="help-block2">Max 5 descriptions, 200 characters each - less is more!</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> 
-                    </div> <!-- end of col -->
-                </div> <!-- end of row -->
-            </form> <!-- end of form -->
-
-            <div class="row justify-content-center">
-                <div class="col-lg-2 col-xl-2">
-                    <button id="generate-btn" class="btn btn-primary next-step submit_notes"{% if disabled %} disabled {%endif%}>Generate Text</button>
-                </div>
-            </div> <!-- end of row -->
-            <div class="row justify-content-center">
-                <div class="col-lg-3 col-xl-3">
-                    <div class="help-block with-errors">
-                        {% if disabled %}
-                            <p style="color: red">Out of generation credits. Increase your plan or contact support.</p>
-                        {% else %}
-                            <p id="credits_left" style="color: grey">Uses 1 generation credit. Credits left: {{credits}}</p>
-                        {% endif %}
-                        {% if error %}
-                            <b><p style="color: grey">{{ error }}</p></b>
-                        {% endif %}
                     </div>
                 </div>
             </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-8 col-xl-8 texteditor_col">
-                        <textarea id="txtEditor" placeholder="Your content will appear here..."></textarea>
-                </div><!-- end of col -->
-            </div>
-        </div> <!-- end of container -->
-    </div> <!-- end of form content -->
+        </form> <!-- end of form -->
+
+        <div class="row justify-content-center" style="padding-top:20px;">
+            <div class="col d-flex justify-content-center">
+                    <textarea id="txtEditor" class="custom-editor" placeholder="Your content will appear here..."></textarea>
+            </div><!-- end of col -->
+        </div>
+    </div> <!-- end of container -->
+</div> <!-- end of form content -->
 {% endblock %}
 
 {% block scripts %}

@@ -81,16 +81,29 @@ ul a {
 #examplesAccordion{
 	max-width:1400px;
 	max-width:80%;
-	accordion-padding-x:22rem;
 }
 
-#txtEditor {
-	display:block;
-	min-width:500px;
-	max-width:100%;
-	min-height:250px;
+.form-box{
+	padding: 1.5rem;
+	margin-right: 0;
+	margin-left: 0;
+	border-style: solid;
+	border-color: #cccbcb;
+	border-width: 1px;
+	border-top-left-radius: 0.25rem;
+	border-top-right-radius: 0.25rem;
+	flex-direction: column;
+	background-color: #f5f5f5;
+}
+
+.custom-editor {
+	display:block !important;
+	min-width:500px !important;
+	max-width:750px !important;
+	max-width:100%;;
+	min-height:150px;
 	height:100%;
-	width:100%;
+	width:100% !important;
 }
 
 #sidebar-wrapper{

@@ -52,8 +52,8 @@ def press_release(request):
 
         prompt = get_pr_prompt(request)
         try:
-            content = generate_from_prompt(prompt)
-            #content = {"generated_text": "test conent\n\testing\nasdasfas\n\nabc123"}
+            #content = generate_from_prompt(prompt)
+            content = {"generated_text": "test conent\n\testing\nasdasfas\n\nabc123"}
             user = CustomUser.objects.filter(email=request.user.email)
             user.update(num_credits=request.user.num_credits-1)
         except requests.exceptions.RequestException as e:

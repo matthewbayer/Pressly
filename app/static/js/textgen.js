@@ -18,13 +18,13 @@
     }
     $.ajax({
       type: "POST",
-      url: "/app/",
+      url: "/app/press-release/",
       data: JSON.stringify(data_to_send),
       datatype: "json",
       success: function (data) {
           //$("#txtEditor").Editor("setText", data["generated_text"]);
           var textarea = document.getElementById("txtEditor");
-          console.log(textarea);
+
           $("#txtEditor").val(data["generated_text"]);
           //textarea.val(data["generated_text"]);
           textarea.style.height = (textarea.scrollHeight)+"px";
@@ -43,10 +43,11 @@
     
   });
 
-  $('#txtEditor').on('input', function(){
-    var textarea = document.getElementById("txtEditor");
-    textarea.style.height = "5px";
-    textarea.style.height = (textarea.scrollHeight)+"px";
+  $('.custom-editor').on('change keyup paste', function(){
+    
+    var textarea = $(this);
+    textarea.height("5px");
+    textarea.height(textarea.prop('scrollHeight'));
   });
 
 })(jQuery);
