@@ -19,7 +19,7 @@
 	<meta property="og:type" content="article" />
 
     <!-- Website Title -->
-    <title>Tivo - SaaS App HTML Landing Page Template</title>
+    <title>Pressly - Generate Press Releases</title>
     
     <!-- Styles -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap&subset=latin-ext" rel="stylesheet">
@@ -37,7 +37,7 @@
     {% endblock %}
 
     <!-- Favicon  -->
-    <link rel="icon" href="{% static 'images/favicon.png' %}">
+    <link rel="icon" href="{% static 'images/favicon-16x16.png' %}">
 </head>
 <body data-spy="scroll" data-target=".fixed-top">
     
@@ -60,7 +60,7 @@
             <!-- <a class="navbar-brand logo-text page-scroll" href="index.html">Tivo</a> -->
 
             <!-- Image Logo -->
-            <a class="navbar-brand logo-image" href={% url "index" %}><img src="{% static 'images/logo.svg' %}" alt="alternative"></a> 
+            <a class="navbar-brand logo-image" href={% url "index" %}><img src="{% static 'images/Pressly.svg' %}" alt="alternative"></a> 
             
             <!-- Mobile Menu Toggle Button -->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,7 +71,7 @@
 
             <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
+                    <!--<li class="nav-item">
                         <a class="nav-link page-scroll" href="/">HOME <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
@@ -79,24 +79,22 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link page-scroll" href="#details">DETAILS</a>
-                    </li>
+                    </li>-->
 
                     <!-- Dropdown Menu -->          
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle page-scroll" href="#video" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">VIDEO</a>
+                        <a class="nav-link dropdown-toggle page-scroll" href="#video" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">ABOUT</a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="article-details.html"><span class="item-text">ARTICLE DETAILS</span></a>
-                            <div class="dropdown-items-divide-hr"></div>
-                            <a class="dropdown-item" href={% url "terms" %}><span class="item-text">TERMS CONDITIONS</span></a>
+                            <a class="dropdown-item" href={% url "terms" %}><span class="item-text">TERMS & CONDITIONS</span></a>
                             <div class="dropdown-items-divide-hr"></div>
                             <a class="dropdown-item" href={% url "privacy" %}><span class="item-text">PRIVACY POLICY</span></a>
                         </div>
                     </li>
                     <!-- end of dropdown menu -->
 
-                    <li class="nav-item">
+                    <!--<li class="nav-item">
                         <a class="nav-link page-scroll" href="#pricing">PRICING</a>
-                    </li>
+                    </li>-->
                 </ul>
                 
                 {% if logged_in %}
@@ -124,7 +122,7 @@
     {% block footer %}
     <!-- Footer
     <svg class="footer-frame" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 1920 79"><defs><style>.cls-2{fill:#5f4def;}</style></defs><title>footer-frame</title><path class="cls-2" d="M0,72.427C143,12.138,255.5,4.577,328.644,7.943c147.721,6.8,183.881,60.242,320.83,53.737,143-6.793,167.826-68.128,293-60.9,109.095,6.3,115.68,54.364,225.251,57.319,113.58,3.064,138.8-47.711,251.189-41.8,104.012,5.474,109.713,50.4,197.369,46.572,89.549-3.91,124.375-52.563,227.622-50.155A338.646,338.646,0,0,1,1920,23.467V79.75H0V72.427Z" transform="translate(0 -0.188)"/></svg> -->
-    <div class="footer">
+    <!--<div class="footer">
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
@@ -132,7 +130,7 @@
                         <h4>About Tivo</h4>
                         <p class="p-small">We're passionate about developing one of the best writing tools in the market.</p>
                     </div>
-                </div> <!-- end of col -->
+                </div>--> <!-- end of col 
                 <div class="col-md-4">
                     <div class="footer-col middle">
                         <h4>Important Links</h4>
@@ -147,7 +145,7 @@
                             </li>
                         </ul>
                     </div>
-                </div> <!-- end of col -->
+                </div> --><!-- end of col 
                 <div class="col-md-4">
                     <div class="footer-col last">
                         <h4>Contact</h4>
@@ -162,10 +160,10 @@
                             </li>
                         </ul>
                     </div> 
-                </div> <!-- end of col -->
-            </div> <!-- end of row -->
-        </div> <!-- end of container -->
-    </div> <!-- end of footer -->  
+                </div>--> <!-- end of col -->
+            <!--</div>--> <!-- end of row -->
+        <!--</div>--> <!-- end of container -->
+    <!--</div>--> <!-- end of footer -->  
     <!-- end of footer -->
     {% endblock %}
 

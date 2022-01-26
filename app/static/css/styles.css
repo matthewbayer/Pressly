@@ -106,6 +106,17 @@ ul a {
 	width:100% !important;
 }
 
+.custom-editor-sm {
+	display:inline-block!important;
+	min-width:200px !important;
+	max-width:200px !important;
+	max-width:100%;
+	min-height:50px;
+	max-height:50px;
+	height:100%;
+	width:100% !important;
+}
+
 #sidebar-wrapper{
 	width:25%;
 	margin-right:0;

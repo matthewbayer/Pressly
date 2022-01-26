@@ -4,6 +4,7 @@
 
 {% block css %}
     <link href= "{% static 'css/editor.css' %}" rel="stylesheet" type="text/css">
+    <link href= "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css">
 {% endblock %}
 
 {% block app %}
@@ -21,24 +22,43 @@
 
 <div class="form-content" style="padding-bottom:50px;">
     <div class="container">
-        <form id="text_input" data-toggle="validator" data-focus="false">
+        <form method="" id="text_input" data-toggle="validator" data-focus="false">
             <div class="row justify-content-center" style="padding-top:15px;">
                 <div class = "col-sm-10">
                     <div class="form-box d-flex align-items-center">
-                        <label class="h3 control-label col-md-8 margin_label">Company Description</label>
-                        <textarea name="company_description" class="form-control addl_notes2 custom-editor" maxlength="1000" placeholder = "Acme Inc. is a multinational corporation serving..."/></textarea>
-                        <span class="help-block" id="help-block">Max 1000 characters</span>
+                        <div class = "row justify-content-between"style="width:100%;">
+                            <div class = "col-sm-6 text-center">
+                                    <label class="h5 control-label  col-md-8 margin_label">Release Location</label>
+                                    <textarea id="location" name="release_location" class="form-control addl_notes2 custom-editor-sm" maxlength="40" placeholder = "Boston"></textarea>
+                            </div>
+                            <div class = "col-sm-6 text-center">
+                                    <label class="h5 control-label col-md-8 margin_label">Release Date</label>
+                                    <input id="date" name="release_date" class="form-control addl_notes2 custom-editor-sm date" data-provide="datepicker" maxlength="15" placeholder ="01/01/2000"></textarea>
+                            </div>
+                        </div>    
+                        <label class="h3 control-label col-md-8 margin_label">Press Release Title</label>
+                        <textarea id="pr_title" name="company_description" class="form-control addl_notes2 custom-editor" maxlength="100" placeholder = "Acme reports strong growth in Q1..."></textarea>
+                        <span class="help-block" id="help-block">Max 100 characters</span>
+                        <br>
+                        <label class="h3 control-label col-md-8 margin_label">Company Description(s)</label>
+                        <textarea id="description" name="company_description" class="form-control addl_notes2 custom-editor" maxlength="300" placeholder = "Acme Inc. is a multinational corporation serving..."></textarea>
+                        <span class="help-block" id="help-block">Max 300 characters</span>
                         <br>
                         <label class="h3 control-label col-md-8 margin_label">Press Release Notes</label>
-                        <textarea name="pr_details" class="form-control addl_notes custom-editor" maxlength="300" placeholder = "Added 500 customers in the past year..."></textarea>
-                        <span class="help-block" id="help-block">Max 300 characters</span>
-                        <button id="generate-btn" class="btn btn-primary next-step submit_notes"{% if disabled %} disabled {%endif%}>Generate Text</button>
+                        <textarea id="notes" name="pr_details" class="form-control addl_notes custom-editor" maxlength="1000" placeholder = "Added 500 customers in the past year..."></textarea>
+                        <span class="help-block" id="help-block">Max 1000 characters</span>
+                        <button type="button" id="sample-generate-btn" class="btn btn-secondary next-step submit_notes">Try with sample data</button>
+                        <button type="button" id="generate-btn" class="btn btn-primary next-step submit_notes"{% if disabled %} disabled {%endif%}>Generate Text</button>
                         <div class="help-block with-errors">
-                                {% if disabled %}
-                                    <p style="color: red">Out of generation credits. Increase your plan or contact support.</p>
+                                {% if not email_confirmed %}
+                                    <p id="credits_left" style="color: red">Please confirm your account email to begin using the app.</p>
                                 {% else %}
-                                    <p id="credits_left" style="color: grey">Uses 1 generation credit. Credits left: {{credits}}</p>
-                                {% endif %}
+                                    {% if disabled %}
+                                        <p id="credits_left" style="color: red">Out of generation credits. Increase your plan or contact support.</p>
+                                    {% else %}
+                                        <p id="credits_left" style="color: grey">Uses 1 generation credit. Credits left: {{num_credits}}</p>
+                                    {% endif %}
+                                    {% endif %}
                                 {% if error %}
                                     <b><p style="color: grey">{{ error }}</p></b>
                                 {% endif %}
@@ -60,6 +80,8 @@
 {% block scripts %}
 {{ block.super }}
     <!--<script src="{% static 'js/editor.js' %}"></script>  Text Editor -->\
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
     <script src="{% static 'js/textgen.js' %}"></script> <!-- Text API Stuff -->
 {% endblock %}
 

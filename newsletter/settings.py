@@ -21,10 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-hwg24wb3e0k$22qw!y52&+^x^_^clys_7t+syo7%(&w#sgcjki'
-
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", 'django-insecure-hwg24wb3e0k$22qw!y52&+^x^_^clys_7t+syo7%(&w#sgcjki')
+API_KEY = os.environ['API_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 ALLOWED_HOSTS = []
 
@@ -82,6 +82,14 @@ DATABASES = {
     }
 }
 
+# Email Settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = os.environ["EMAIL_HOST"]
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.environ["EMAIL_HOST_USER"]
+EMAIL_HOST_PASSWORD = os.environ["EMAIL_HOST_PASSWORD"] #presslyftw
+ADMIN_EMAIL = os.environ["ADMIN_EMAIL"]
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -104,6 +112,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 CSRF_HEADER_NAME = 'HTTP_X_CSRFTOKEN'
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
@@ -133,7 +143,20 @@ TEXT_GEN_PARAMETERS = {
     "top_p": 1,
     "temperature": 0.7,
     "repetition_penalty": 1.03,
-    "top_k" : 250,
+    "top_k" : 0,
+    "no_repeat_ngram_size": 8,
     #"max_length" : 700
-    "max_length": 500
+    "max_length": 250
 }
+
+"""
+FOR IMMEDIATE RELEASE
+
+BOSTON, Jan 1, 2022 -- Pressly, Inc., a Boston-based startup developing a cutting-edge AI-driven press release writing assistant, today announced the launch of its flagship product, the Press Release Assistant. The Press Release Assistant is a web-based software platform that helps companies generate professional-looking press releases at the click of a button.
+
+The Press Release Assistant was developed using state-of-the-art artificial intelligence technology that combines natural language processing, machine learning, and deep learning to create unique and compelling content from scratch. For example, the Press Release Assistant can generate a full industry report from a company description and short outline, with a professional and formal tone.
+
+"We're excited to be able to offer a new way for companies to write press releases at a fraction of the cost and time," said Shawn Stuckey, CEO and cofounder of Pressly. "The Press Release Assistant is fast, easy to use, and produces professional-looking content at a fraction of the cost and time of traditional services. In fact, our average customer saves more than 3 hours each month on writing a press release – that's more than $2000 per year in saved labor costs."
+
+The Press Release Assistant also offers a much simpler user experience
+"""
