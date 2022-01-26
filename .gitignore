@@ -135,3 +135,9 @@ dmypy.json
 
 # VSCode
 .vscode/
+
+# Text backup files
+*.bak
+
+# Database
+*.sqlite3
