@@ -10,7 +10,7 @@ class CustomUser(AbstractUser):
     admin_approved = models.BooleanField(default=False, verbose_name = "Admin approved for Beta use")
     username = None
 
-    REQUIRED_FIELDS = ["password, email_confirmed"]
+    REQUIRED_FIELDS = ["password", "email_confirmed"]
     USERNAME_FIELD = "email"
     
     objects = CustomUserManager()
