@@ -69,8 +69,8 @@ def press_release(request):
         
         try:
             prompt, submission_attrs = get_pr_prompt(request)
-            print(prompt)
-            #content = generate_from_prompt(prompt)
+            #print(prompt)
+            content = generate_from_prompt(prompt)
             content = {"generated_text": "test conent\n\testing\nasdasfas\n\nabc123"}
             content["num_credits"] = request.user.num_credits - 1
             user = CustomUser.objects.filter(email=request.user.email)
