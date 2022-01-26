@@ -149,10 +149,10 @@ TEXT_GEN_PARAMETERS = {
     "top_p": 1,
     "temperature": 0.7,
     "repetition_penalty": 1.03,
-    "top_k" : 0,
+    "top_k" : 250,
     "no_repeat_ngram_size": 8,
     #"max_length" : 700
-    "max_length": 250
+    "max_length": 550
 }
 
 # Logging
