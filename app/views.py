@@ -18,7 +18,10 @@ from .models import NewsletterSubscription, CustomUser, PressReleaseSubmission
 from .generate_pr import get_pr_prompt, generate_from_prompt
 from .auth_helpers import send_confirmation_email, account_activation_token, approval_check
 
+from rq import Queue
+from .worker import conn
 
+q = Queue(connection=conn)
 
 def generate_context(request, extra=None):
     logged_in = request.user.is_authenticated
@@ -70,7 +73,7 @@ def press_release(request):
         try:
             prompt, submission_attrs = get_pr_prompt(request)
             #print(prompt)
-            content = generate_from_prompt(prompt)
+            content = q.enqueue(generate_from_prompt(prompt))
             #content = {"generated_text": "test conent\n\testing\nasdasfas\n\nabc123"}
             content["num_credits"] = request.user.num_credits - 1
             user = CustomUser.objects.filter(email=request.user.email)
