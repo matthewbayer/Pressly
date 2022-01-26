@@ -18,7 +18,7 @@
                                     <label class="label-control" for="{{field.auto_id}}">{{ field.label }}</label>
                                     <div class="help-block with-errors">
                                         {% for error in field.errors %}
-                                            <b><p style="color: grey">{{ error }}</p></b>
+                                            <u><b><p style="color: black">{{ error }}</p></b></u>
                                         {% endfor %}
                                         {% if field.help_text %}
                                             <small style="color: grey">{{ field.help_text }}</small>
@@ -76,7 +76,7 @@
                             </div>
                         </form>
                     </div>--> <!-- end of form container -->
-                    <!-- end of sign up form --
+                    <!-- end of sign up form -->
 
                 </div> <!-- end of col -->
             </div> <!-- end of row -->

@@ -20,10 +20,12 @@ from django.urls import path
 from app import views
 
 urlpatterns = [
+    path('activate/<uidb64>/<token>/', views.activate, name="activate"),
     path('admin/', admin.site.urls),
-    path('', views.index, name="index"),
+    path('not-active/', views.not_active, name="not-active"),
+    path('', views.press_release, name="index"), #Used to be index
     path('app/press-release/', views.press_release, name="press_release"),
-    path('app/', views.app, name="app"),
+    path('app/', views.press_release, name="app"),  #Used to be app
     path('login/', views.log_in, name="login"),
     path('logout/', views.log_out, name="logout"),
     path('sign-up/', views.sign_up, name="signup"),
