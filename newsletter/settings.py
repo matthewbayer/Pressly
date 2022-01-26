@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import dj_database_url
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -133,6 +135,10 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "app", "static")
 
+# Simplified static file serving.
+# https://warehouse.python.org/project/whitenoise/
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
@@ -149,14 +155,5 @@ TEXT_GEN_PARAMETERS = {
     "max_length": 250
 }
 
-"""
-FOR IMMEDIATE RELEASE
-
-BOSTON, Jan 1, 2022 -- Pressly, Inc., a Boston-based startup developing a cutting-edge AI-driven press release writing assistant, today announced the launch of its flagship product, the Press Release Assistant. The Press Release Assistant is a web-based software platform that helps companies generate professional-looking press releases at the click of a button.
-
-The Press Release Assistant was developed using state-of-the-art artificial intelligence technology that combines natural language processing, machine learning, and deep learning to create unique and compelling content from scratch. For example, the Press Release Assistant can generate a full industry report from a company description and short outline, with a professional and formal tone.
-
-"We're excited to be able to offer a new way for companies to write press releases at a fraction of the cost and time," said Shawn Stuckey, CEO and cofounder of Pressly. "The Press Release Assistant is fast, easy to use, and produces professional-looking content at a fraction of the cost and time of traditional services. In fact, our average customer saves more than 3 hours each month on writing a press release – that's more than $2000 per year in saved labor costs."
-
-The Press Release Assistant also offers a much simpler user experience
-"""
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
