@@ -11,9 +11,7 @@ Press Release Outline:
 {details}
 ***
 
-Press Release Title: {title}
-
-Press Release Body:
+{title}
 
 FOR IMMEDIATE RELEASE
 
