@@ -1,21 +1,17 @@
-from newsletter.settings import TEXT_GEN_PARAMETERS as parameters, API_KEY
+from newsletter.settings import TEXT_GEN_PARAMETERS as parameters, API_KEY, DEBUG
+from .generation_templates import press_release_template
+from .models import PressReleaseSubmission
+from asgiref.sync import sync_to_async
+from django_rq import job
 import json
 import nlpcloud
 import datetime
+import requests
+import time
+import asyncio
 
 client = nlpcloud.Client("gpt-j", API_KEY, gpu=True)
-input_text_template = """This is a list of press release facts, followed by a detailed industry press release based off the facts. The press release is written in the third person with a professional and formal tone.
 
-Press Release Outline:
-***
-{details}
-***
-
-{title}
-
-FOR IMMEDIATE RELEASE
-
-{location}, {release_date} /PRNewswire/ --"""
 
 def format_line(idx, text):
     return str(idx) + ". " + text
@@ -42,8 +38,8 @@ def get_pr_prompt(request):
         'release_date':date_formatted
     }
 
-    prompt = input_text_template.format(**submission_attrs)
-    print(prompt)
+    prompt = press_release_template.format(**submission_attrs)
+    #print(prompt)
 
     # reformat for postprocessing
     submission_attrs["release_date"] = submitted_date
@@ -59,3 +55,35 @@ def generate_from_prompt(prompt):
     result["generated_text"] = result["generated_text"][start_idx:]
     result["generated_text"] = result["generated_text"].replace("/PRNewswire/ ", '')
     return result
+
+@job
+def generate_press_release(prompt, submission_id, test_delay=4):
+    """
+    Call external API to generate text for press release. Requires submission_id refers
+    to a real PressReleaseSubmission object, else raises ObjectDoesNotExist
+    """
+    submission = PressReleaseSubmission.objects.get(submission_id=submission_id)
+    user = submission.user
+    print("begin")
+    try:
+        if not DEBUG:
+            1/0
+            content = generate_from_prompt(prompt)
+        else:
+            content = {"generated_text": "test conent\n\testing\nasdasfas\n\nabc123"}
+            time.sleep(test_delay)
+        content["generated_text"] = content["generated_text"].replace("\n", "\n")
+        submission.generated_text = content["generated_text"]
+        submission.set_complete()
+        print("Done")
+        user.num_credits = user.num_credits - 1
+        user.save()
+
+    except requests.exceptions.RequestException as e:
+        submission.error_msg = "An error occurred generating your content. Please try again."
+        submission.set_error()
+        print(e)
+    except ValueError:
+        submission.error_msg = "Error reading in your submission - ensure your date is properly formatted."
+        submission.set_error()
+    

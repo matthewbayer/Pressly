@@ -46,7 +46,7 @@ class NewsletterAdmin(admin.ModelAdmin):
 @admin.register(PressReleaseSubmission)
 class PressReleaseSubmissionAdmin(admin.ModelAdmin):
     model = PressReleaseSubmission
-    list_display = ('user', 'submission_date')
+    list_display = ('user', 'submission_id', 'submission_date')
     search_fields = ('user',)
     list_filter = ('user',)
     ordering = ('submission_date',)

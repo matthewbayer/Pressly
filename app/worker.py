@@ -1,7 +1,15 @@
 import os
-
+import sys
 import redis
+import django
+
 from rq import Worker, Queue, Connection
+
+sys.path.append(os.path.join(os.path.dirname(__file__), "lib"))
+sys.path.insert(0, "..")
+sys.path.insert(0, "../..")
+
+django.setup()
 
 listen = ['high', 'default', 'low']
 
