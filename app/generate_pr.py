@@ -57,7 +57,7 @@ def generate_from_prompt(prompt):
     return result
 
 @job
-def generate_press_release(prompt, submission_id, test_delay=4):
+def generate_press_release(prompt, submission_id, test_delay=6):
     """
     Call external API to generate text for press release. Requires submission_id refers
     to a real PressReleaseSubmission object, else raises ObjectDoesNotExist

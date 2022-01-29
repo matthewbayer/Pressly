@@ -72,14 +72,12 @@
 							$("#credits_left").replaceWith('<p id="credits_left" style="color: red">Out of generation credits. Increase your plan or contact support.</p>');
 							$("#generate-btn").prop("disabled",true);;
 						}
+						preloader.fadeOut();
 					}
 			  	}
 			});
 		  }
-		  poll();
-
-		preloader.fadeOut();
-
+		poll();
   	});
 
 	$('.custom-editor').on('change keyup paste update', function(){
