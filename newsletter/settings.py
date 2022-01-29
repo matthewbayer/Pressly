@@ -153,7 +153,7 @@ TEXT_GEN_PARAMETERS = {
     "top_k" : 250,
     "no_repeat_ngram_size": 8,
     #"max_length" : 700
-    "max_length": 100
+    "max_length": 500
 }
 
 # Logging
