@@ -184,9 +184,11 @@ RQ_QUEUES = {
         'URL': os.getenv('REDISTOGO_URL', 'redis://localhost:6379/0'), # If you're on Heroku
     },
     'high': {
+        'PASSWORD': 'presslyredisftw',
         'URL': os.getenv('REDISTOGO_URL', 'redis://localhost:6379/0'), # If you're on Heroku
     },
     'low': {
+        'PASSWORD': 'presslyredisftw',
         'URL': os.getenv('REDISTOGO_URL', 'redis://localhost:6379/0'), # If you're on Heroku
     }
 }
