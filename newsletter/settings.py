@@ -181,12 +181,10 @@ DATABASES['default'].update(db_from_env)
 RQ_QUEUES = {
     'default': {
         'PASSWORD': 'presslyredisftw',
-        'DEFAULT_TIMEOUT': 360,
         'URL': os.getenv('REDISTOGO_URL', 'redis://localhost:6379/0'), # If you're on Heroku
     },
     'high': {
         'URL': os.getenv('REDISTOGO_URL', 'redis://localhost:6379/0'), # If you're on Heroku
-        'DEFAULT_TIMEOUT': 500,
     },
     'low': {
         'URL': os.getenv('REDISTOGO_URL', 'redis://localhost:6379/0'), # If you're on Heroku
