@@ -180,7 +180,7 @@ DATABASES['default'].update(db_from_env)
 
 RQ_QUEUES = {
     'default': {
-        'HOST': os.getenv('REDISTOGO_URL', 'localhost'),
+        'HOST': 'localhost',
         'PORT': 6379,
         'DB': 0,
         'PASSWORD': 'presslyredisftw',
@@ -201,7 +201,7 @@ RQ_QUEUES = {
         'DEFAULT_TIMEOUT': 500,
     },
     'low': {
-        'HOST': os.getenv('REDISTOGO_URL', 'localhost'),
+        'HOST': 'localhost',
         'PORT': 6379,
         'DB': 0,
     }
