@@ -1,2 +1,2 @@
-web: gunicorn newsletter.wsgi --log-file -
-worker: python app/manage.py rqworker high default low
+web: gunicorn --log-file - --pythonpath="$PWD/app" config.wsgi:application
+worker: python manage.py rqworker high default low
