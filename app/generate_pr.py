@@ -67,7 +67,6 @@ def generate_press_release(prompt, submission_id, test_delay=4):
     print("begin")
     try:
         if not DEBUG:
-            1/0
             content = generate_from_prompt(prompt)
         else:
             content = {"generated_text": "test conent\n\testing\nasdasfas\n\nabc123"}
