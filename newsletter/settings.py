@@ -185,6 +185,7 @@ RQ_QUEUES = {
         'DB': 0,
         'PASSWORD': 'presslyredisftw',
         'DEFAULT_TIMEOUT': 360,
+        'URL': os.getenv('REDISTOGO_URL', 'redis://localhost:6379/0'), # If you're on Heroku
     },
     'with-sentinel': {
         'SENTINELS': [('localhost', 26736), ('localhost', 26737)],
@@ -202,6 +203,7 @@ RQ_QUEUES = {
     },
     'low': {
         'HOST': 'localhost',
+        'URL': os.getenv('REDISTOGO_URL', 'redis://localhost:6379/0'), # If you're on Heroku
         'PORT': 6379,
         'DB': 0,
     }
