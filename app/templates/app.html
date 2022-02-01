@@ -6,6 +6,9 @@
     <link href= "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css">
 {% endblock %}
 
+{% block above-nav %}
+{% endblock %}
+
 {% block app %}
 {% endblock %}
 
@@ -14,10 +17,11 @@
 <!-- Header -->
 <header id="header" class="header">
     <div class="header-content-app">
-
     </div> <!-- end of header-content -->
 </header> <!-- end of header -->
     <!-- end of header -->
+
+
 
 <div class="form-content" style="padding-bottom:50px;">
     <div class="container">
@@ -28,7 +32,7 @@
                         <div class = "row justify-content-between"style="width:100%;">
                             <div class = "col-sm-6 text-center">
                                     <label class="h5 control-label  col-md-8 margin_label">Release Location</label>
-                                    <textarea id="location" name="release_location" class="form-control addl_notes2 custom-editor-sm" maxlength="40" placeholder = "Boston"></textarea>
+                                    <textarea id="location" name="release_location" class="form-control addl_notes2 custom-editor-sm" maxlength="40" placeholder = "Boston, MA"></textarea>
                             </div>
                             <div class = "col-sm-6 text-center">
                                     <label class="h5 control-label col-md-8 margin_label">Release Date</label>
@@ -43,11 +47,14 @@
                         <textarea id="description" name="company_description" class="form-control addl_notes2 custom-editor" maxlength="300" placeholder = "Acme Inc. is a multinational corporation serving..."></textarea>
                         <span class="help-block" id="help-block">Max 300 characters</span>
                         <br>
-                        <label class="h3 control-label col-md-8 margin_label">Press Release Notes</label>
+                        <label class="h3 control-label col-md-8 margin_label">Press Release Key Messages</label>
                         <textarea id="notes" name="pr_details" class="form-control addl_notes custom-editor" maxlength="1000" placeholder = "Added 500 customers in the past year..."></textarea>
                         <span class="help-block" id="help-block">Max 1000 characters</span>
-                        <button type="button" id="sample-generate-btn" class="btn btn-secondary next-step submit_notes">Try with sample data</button>
-                        <button type="button" id="generate-btn" class="btn btn-primary next-step submit_notes"{% if disabled %} disabled {%endif%}>Generate Text</button>
+                        <button type="button" id="sample-generate-btn" class="btn btn-secondary next-step submit_notes">Try an example</button>
+                        <button type="button" id="generate-btn" class="btn btn-primary next-step submit_notes"{% if disabled %} disabled {%endif%}>
+                            <span id="submit-btn-spinner" role="status"></span>
+                            <span id="generate-btn-text">Generate Text</span>
+                        </button>
                         <div class="help-block with-errors">
                                 {% if not email_confirmed %}
                                     <p id="credits_left" style="color: red">Please confirm your account email to begin using the app.</p>
@@ -61,6 +68,9 @@
                                 {% if error %}
                                     <b><p style="color: grey">{{ error }}</p></b>
                                 {% endif %}
+                        </div>
+                        <div id="progress-full" class="progress" style="width:100%" hidden>
+                            <div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
                 </div>

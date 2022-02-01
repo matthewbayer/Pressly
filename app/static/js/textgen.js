@@ -23,8 +23,16 @@
 			"date": date.value
 		}
 
-    	var preloader = $('.spinner-wrapper');
-		preloader.fadeIn();
+    	//var preloader = $('.spinner-wrapper');
+		//preloader.fadeIn();
+		$("#submit-btn-spinner").addClass("spinner-border");
+		$("#submit-btn-spinner").addClass("spinner-border-sm");
+		$("#generate-btn").prop("disabled",true);
+		$("#sample-generate-btn").prop("disabled",true);
+		$("#generate-btn-text").text("Processing...");
+		$("#progress-bar").css("width", "0%");
+		$("#progress-full").attr("hidden", false);
+		
 		
 		var request_id = null;
 		function id_callback(id){
@@ -43,6 +51,9 @@
 			}
 		});
 
+		var num_polls = 0;
+		const time_to_fill_progress_bar = 40;
+
 		poll = function() {
 			$.ajax({
 				type: 'GET',
@@ -50,6 +61,11 @@
 				async: false,
 				success: function(data) {
 					if (data["status"] == "PENDING") {
+						num_polls++;
+						progress = Math.min(100 * num_polls / time_to_fill_progress_bar, 90);
+						$("#progress-bar").css("width", progress + "%");
+
+
 						setTimeout(function(){
 							poll();
 						}, 1000);
@@ -63,16 +79,21 @@
 							$("#txtEditor").val(data["error_msg"]);
 						}
 						
+						$("#progress-full").attr("hidden", true);
+						$("#submit-btn-spinner").removeClass("spinner-border");
+						$("#submit-btn-spinner").removeClass("spinner-border-sm");
+						$("#sample-generate-btn").prop("disabled",false);
 						$("#txtEditor").trigger("change");
 						$("#generate-btn").text("Try Another Generation");
 						if (parseInt(data["num_credits"]) > 0) {
 							$("#credits_left").text("Uses 1 generation credit. Credits left: " + data["num_credits"]);
+							$("#generate-btn").prop("disabled",false);
 						}
 						else{
 							$("#credits_left").replaceWith('<p id="credits_left" style="color: red">Out of generation credits. Increase your plan or contact support.</p>');
-							$("#generate-btn").prop("disabled",true);;
+							$("#generate-btn").prop("disabled",true);
 						}
-						preloader.fadeOut();
+						//preloader.fadeOut();
 					}
 			  	}
 			});
@@ -94,7 +115,7 @@
 		var location = document.getElementById('location');
 		var date = document.getElementById('date');
 
-		$('#location').val("Boston");
+		$('#location').val("Boston, MA");
 		$('#date').val("01/01/2022");
 		$('#pr_title').val("Pressly Releases Press Release Writing Assistant");
 		$("#description").val(`- Pressly is an internet company using cutting-edge AI technology to help companies write press releases and other external communications.`);

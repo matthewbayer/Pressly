@@ -15,17 +15,12 @@ import datetime
 import asyncio
 import django_rq
 
-from rq import Queue
-from .worker import conn
-
 from .forms import CustomUserCreationForm, SubscriptionForm
 from .models import NewsletterSubscription, CustomUser, PressReleaseSubmission
 from .generate_pr import get_pr_prompt, generate_press_release
 from .view_helpers import generate_context
 from .auth_helpers import log_in, log_out, sign_up, activate, approval_check
 from newsletter.settings import DEBUG
-
-q = Queue(connection=conn)
 
 def handler404(request, *args, **argv):
     response = render('404.html', generate_context(request))
@@ -44,6 +39,7 @@ def index(request):
             return render(request, 'index.html', generate_context(request, {'form': form}))
     
 @login_required(login_url='/login/')
+@user_passes_test(approval_check, login_url="/not-active/")
 def app(request):
     if request.method == "GET":
         return render(request, 'app_landing_page.html', generate_context(request))

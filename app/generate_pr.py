@@ -3,9 +3,10 @@ from .generation_templates import press_release_template
 from .models import PressReleaseSubmission
 from asgiref.sync import sync_to_async
 from django_rq import job
+
 import json
 import nlpcloud
-import datetime
+from datetime import datetime
 import requests
 import time
 import asyncio
@@ -28,7 +29,11 @@ def get_pr_prompt(request):
     else:
         location = location.upper()
 
-    submitted_date = datetime.datetime.strptime(data["date"], "%m/%d/%Y")
+    try:
+        submitted_date = datetime.strptime(data["date"], "%m/%d/%Y")
+    except ValueError: # Fallback to today's date
+        submitted_date = datetime.now()
+    
     date_formatted = submitted_date.strftime("%b %-m, %Y")
 
     submission_attrs = {
