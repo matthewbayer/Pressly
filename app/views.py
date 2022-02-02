@@ -84,7 +84,7 @@ def generate_pr(request):
 
     elif request.method == "POST":
         # wat u doin here
-        if request.user.num_credits == 0 or not request.user.admin_approved or not request.user.is_authenticated:
+        if request.user.num_credits == 0 or not request.user.admin_approved or not request.user.is_authenticated or not request.user.email_confirmed:
             response = {
                 "id": 0,
                 "status": "Error: Either user is not authenticated or has zero generation credits."

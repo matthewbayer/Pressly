@@ -50,8 +50,8 @@
                         <label class="h3 control-label col-md-8 margin_label">Press Release Key Messages</label>
                         <textarea id="notes" name="pr_details" class="form-control addl_notes custom-editor" maxlength="1000" placeholder = "Added 500 customers in the past year..."></textarea>
                         <span class="help-block" id="help-block">Max 1000 characters</span>
-                        <button type="button" id="sample-generate-btn" class="btn btn-secondary next-step submit_notes">Try an example</button>
-                        <button type="button" id="generate-btn" class="btn btn-primary next-step submit_notes"{% if disabled %} disabled {%endif%}>
+                        <button type="button" id="sample-generate-btn" class="btn btn-secondary next-step submit_notes"{% if not email_confirmed %} disabled {%endif%}>Try an example</button>
+                        <button type="button" id="generate-btn" class="btn btn-primary next-step submit_notes"{% if disabled or not email_confirmed %} disabled {%endif%}>
                             <span id="submit-btn-spinner" role="status"></span>
                             <span id="generate-btn-text">Generate Text</span>
                         </button>
