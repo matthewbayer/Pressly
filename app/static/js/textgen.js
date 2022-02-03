@@ -116,19 +116,19 @@
 		var date = document.getElementById('date');
 
 		$('#location').val("Boston, MA");
-		$('#date').val("01/01/2022");
+		$('#date').val("02/01/2022");
 		$('#pr_title').val("Pressly Releases Press Release Writing Assistant");
-		$("#description").val(`- Pressly is an internet company using cutting-edge AI technology to help companies write press releases and other external communications.`);
-		$("#notes").val(`- Announcing the release of its flagship product, the Press Release Assistant
-- The Press Release Assistant generates professional-looking press releases at the click of a button
-- Creates a full industry report from a company description + a short outline
-- Leverages modern neural networks for high quality text generation
-- Offers a much simpler user experience than competitors, leading to increased use
-- The company is continuing to grow and expand the features its product can provide
-- Pressly is in its first year of operations
-- The product has earned strong reviews from famous authors such as Ernest Hemingway and Mark Twain
-- Sold with a tiered subscription model, billed monthly
-- Pressly plans to expand into email assistants, along with investor updates`);
+		$("#description").val(`Pressly is an internet company using cutting-edge AI technology to help companies write press releases and other external communications.`);
+		$("#notes").val(`Announcing the release of its flagship product, the Press Release Assistant.
+The Press Release Assistant generates professional-looking press releases at the click of a button.
+Creates a full industry report from a company description + a short outline.
+Leverages modern neural networks for high quality text generation.
+Offers a much simpler user experience than competitors, leading to increased use.
+The company is continuing to grow and expand the features its product can provide.
+Pressly is in its first year of operations.
+The product has earned strong reviews from famous authors such as Ernest Hemingway and Mark Twain.
+Sold with a tiered subscription model, billed monthly.
+Pressly plans to expand into email assistants, along with investor updates.`);
 	$("#description").trigger("change");
 	$("#notes").trigger("change");
 	//setDate(date, new Date(2022, 1, 1));

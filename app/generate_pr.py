@@ -1,16 +1,20 @@
-from newsletter.settings import TEXT_GEN_PARAMETERS as parameters, API_KEY, DEBUG
+from newsletter.settings import TEXT_GEN_PARAMETERS as parameters, API_KEY, GOOSE_API_KEY, DEBUG
 from .generation_templates import press_release_template
 from .models import PressReleaseSubmission
 from asgiref.sync import sync_to_async
 from django_rq import job
 
 import json
-import nlpcloud
-import openai
-from datetime import datetime
 import requests
 import time
 import asyncio
+from datetime import datetime
+import nlpcloud
+import openai
+
+openai.api_key = GOOSE_API_KEY
+openai.api_base = "https://api.goose.ai/v1"
+
 
 #client = nlpcloud.Client("gpt-j", API_KEY, gpu=True)
 
