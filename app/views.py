@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.conf import settings
 from django.template import RequestContext
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect, HttpResponseForbidden
@@ -120,6 +120,9 @@ def press_release(request):
         
 
 def not_active(request):
+    if approval_check(request.user):
+        return redirect('/app/press-release/')
+        
     return render(request, "not-active.html", generate_context(request))
 
 def privacy(request):

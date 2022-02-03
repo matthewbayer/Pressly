@@ -9,4 +9,4 @@ Press Release Outline:
 
 FOR IMMEDIATE RELEASE
 
-{location}, {release_date} /PRNewswire/ --"""
+{location}, {release_date} /PRNewswire/ -- Today,"""

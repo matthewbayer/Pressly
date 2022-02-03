@@ -6,12 +6,13 @@ from django_rq import job
 
 import json
 import nlpcloud
+import openai
 from datetime import datetime
 import requests
 import time
 import asyncio
 
-client = nlpcloud.Client("gpt-j", API_KEY, gpu=True)
+#client = nlpcloud.Client("gpt-j", API_KEY, gpu=True)
 
 
 def format_line(idx, text):
@@ -54,9 +55,19 @@ def get_pr_prompt(request):
     return prompt, submission_attrs
 
 def generate_from_prompt(prompt):
-    result = client.generation(str(prompt), top_k=parameters["top_k"], length_no_input=True, max_length=parameters["max_length"], top_p=parameters["top_p"], temperature=parameters["temperature"], repetition_penalty=parameters["repetition_penalty"])
-    generated = result["generated_text"]
-    start_idx = generated.find("FOR IMMEDIATE RELEASE")
+    #result = client.generation(str(prompt), top_k=parameters["top_k"], length_no_input=True, max_length=parameters["max_length"], top_p=parameters["top_p"], temperature=parameters["temperature"], repetition_penalty=parameters["repetition_penalty"])
+    #generated = result["generated_text"]
+    completion = openai.Completion.create(
+        engine="gpt-neo-20b",
+        prompt=prompt,
+        max_tokens=500,
+        temperature=1.2,
+        top_k=20,
+        top_p=0.7,
+        stream=False)
+    all_text = prompt + completion['choices'][0]['text']
+    result = {"generated_text": all_text}
+    start_idx = all_text.find("FOR IMMEDIATE RELEASE")
     result["generated_text"] = result["generated_text"][start_idx:]
     result["generated_text"] = result["generated_text"].replace("/PRNewswire/ ", '')
     return result
@@ -74,7 +85,7 @@ def generate_press_release(prompt, submission_id, test_delay=6):
         if not DEBUG:
             content = generate_from_prompt(prompt)
         else:
-            content = {"generated_text": "test conent\n\testing\nasdasfas\n\nabc123"}
+            content = {"generated_text": "test content\n\testing\nasdasfas\n\nabc123"}
             time.sleep(test_delay)
         content["generated_text"] = content["generated_text"].replace("\n", "\n")
         submission.generated_text = content["generated_text"]
