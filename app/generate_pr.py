@@ -73,6 +73,9 @@ def generate_from_prompt(prompt):
     result = {"generated_text": all_text}
     start_idx = all_text.find("FOR IMMEDIATE RELEASE")
     result["generated_text"] = result["generated_text"][start_idx:]
+    end_idx = result["generated_text"].find("<|endoftext|>")
+    if end_idx != -1:
+        result["generated_text"] = result["generated_text"][:end_idx]
     result["generated_text"] = result["generated_text"].replace("/PRNewswire/ ", '')
     return result
 
