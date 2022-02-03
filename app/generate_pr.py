@@ -55,7 +55,7 @@ def get_pr_prompt(request):
     submission_attrs["release_date"] = submitted_date
     submission_attrs["company_descriptions"] = data["company_descriptions"]
     submission_attrs["details"] = data["pr_details"]
-    
+    print(prompt)
     return prompt, submission_attrs
 
 def generate_from_prompt(prompt):
@@ -65,7 +65,7 @@ def generate_from_prompt(prompt):
         engine="gpt-neo-20b",
         prompt=prompt,
         max_tokens=500,
-        temperature=1.2,
+        temperature=1.1,
         top_k=20,
         top_p=0.7,
         stream=False)

@@ -52,7 +52,7 @@
 		});
 
 		var num_polls = 0;
-		const time_to_fill_progress_bar = 40;
+		const time_to_fill_progress_bar = 50;
 
 		poll = function() {
 			$.ajax({
