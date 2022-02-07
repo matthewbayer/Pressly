@@ -44,6 +44,11 @@ Colors:
   width:35px;
 }
 
+.media {
+  display: flex;
+  flex-direction: row;
+}
+
 .addl_notes {
 	margin-top: 20px;
 }
