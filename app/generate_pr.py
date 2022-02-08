@@ -39,7 +39,7 @@ def get_pr_prompt(request):
     except ValueError: # Fallback to today's date
         submitted_date = datetime.now()
     
-    date_formatted = submitted_date.strftime("%b %-m, %Y")
+    date_formatted = submitted_date.strftime("%b %-d, %Y")
 
     submission_attrs = {
         'title':data["title"],
