@@ -40,15 +40,15 @@
                             </div>
                         </div>    
                         <label class="h3 control-label col-md-8 margin_label">Press Release Title</label>
-                        <textarea id="pr_title" name="company_description" class="form-control addl_notes2 custom-editor" maxlength="100" placeholder = "Acme reports strong growth in Q1..."></textarea>
+                        <textarea id="pr_title" name="company_description" class="form-control addl_notes2 custom-editor" maxlength="10000" placeholder = "Acme reports strong growth in Q1..."></textarea>
                         <span class="help-block" id="help-block">Max 100 characters</span>
                         <br>
                         <label class="h3 control-label col-md-8 margin_label">Company Description(s)</label>
-                        <textarea id="description" name="company_description" class="form-control addl_notes2 custom-editor" maxlength="300" placeholder = "Acme Inc. is a multinational corporation serving..."></textarea>
+                        <textarea id="description" name="company_description" class="form-control addl_notes2 custom-editor" maxlength="30000" placeholder = "Acme Inc. is a multinational corporation serving..."></textarea>
                         <span class="help-block" id="help-block">Max 300 characters</span>
                         <br>
                         <label class="h3 control-label col-md-8 margin_label">Press Release Key Messages</label>
-                        <textarea id="notes" name="pr_details" class="form-control addl_notes custom-editor" maxlength="1000" placeholder = "Added 500 customers in the past year..."></textarea>
+                        <textarea id="notes" name="pr_details" class="form-control addl_notes custom-editor" maxlength="100000" placeholder = "Added 500 customers in the past year..."></textarea>
                         <span class="help-block" id="help-block">Max 1000 characters</span>
                         <button type="button" id="sample-generate-btn" class="btn btn-secondary next-step submit_notes"{% if not email_confirmed %} disabled {%endif%}>Try an example</button>
                         <button type="button" id="generate-btn" class="btn btn-primary next-step submit_notes"{% if disabled or not email_confirmed %} disabled {%endif%}>
