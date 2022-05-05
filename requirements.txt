@@ -88,11 +88,8 @@ msrestazure==0.6.4
 multidict==5.2.0
 ndg-httpsclient==0.5.1
 netron==5.7.1
-nlpcloud==1.0.18
 numpy==1.22.3
 oauthlib==3.2.0
-onnxconverter-common==1.9.0
-openai==0.14.0
 opencensus==0.8.0
 opencensus-context==0.1.2
 opencensus-ext-azure==1.1.3
