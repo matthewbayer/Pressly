@@ -15,6 +15,7 @@ import datetime
 import asyncio
 import django_rq
 
+from .mock_iot import send_iot_message
 from .forms import CustomUserCreationForm, SubscriptionForm
 from .models import NewsletterSubscription, CustomUser, PressReleaseSubmission
 from .generate_pr import get_pr_prompt, generate_press_release
@@ -46,6 +47,14 @@ def app(request):
 
 def prohibited(request):
     return HttpResponseForbidden("Wrong link, cowboy. Contact support if needed")
+
+@login_required(login_url='/login/')
+@user_passes_test(approval_check, login_url="/not-active/")
+def submit_data_backend(request):
+    data = json.loads(request.body.decode('UTF-8'))
+    cow_status = data["status"]
+    asyncio.run(send_iot_message(cow_status))
+    return JsonResponse({})
 
 @login_required(login_url='/login/')
 @user_passes_test(approval_check, login_url="/not-active/")
@@ -97,6 +106,7 @@ def generate_pr(request):
         submission_attrs["submission_date"] = make_aware(datetime.datetime.now())
         submission = PressReleaseSubmission(**submission_attrs)
         submission.save()
+        print(submission.submission_id)
         django_rq.enqueue(generate_press_release, prompt, submission.submission_id)
 
         response = {
@@ -110,6 +120,7 @@ def generate_pr(request):
 @user_passes_test(approval_check, login_url="/not-active/")
 def press_release(request):
     if request.method == "GET":
+        
         #if not request.user.is_authenticated:
         #    return render(request, 'log-in.html', generate_context(request))
         #else:
@@ -118,6 +129,26 @@ def press_release(request):
                                                             "disabled":request.user.num_credits==0,
                                                             "email_confirmed":request.user.email_confirmed}))
         
+@login_required(login_url='/login/')
+@user_passes_test(approval_check, login_url="/not-active/")
+def submit_data(request):
+    if request.method == "GET":
+        return render(request, 'submit_data.html', generate_context(request, 
+                                                    {"num_credits":request.user.num_credits,
+                                                    "disabled":request.user.num_credits==0,
+                                                    "email_confirmed":request.user.email_confirmed}))
+
+
+@login_required(login_url='/login/')
+@user_passes_test(approval_check, login_url="/not-active/")
+def history(request):
+    history = PressReleaseSubmission.objects.filter(user=request.user)
+    return render(request, 'history.html', generate_context(request, 
+                                                    {"num_credits":request.user.num_credits,
+                                                    "disabled":request.user.num_credits==0,
+                                                    "email_confirmed":request.user.email_confirmed,
+                                                    "history":history}))
+
 
 def not_active(request):
     if approval_check(request.user):

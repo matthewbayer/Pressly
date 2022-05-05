@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block app %}
+{% endblock %}
+
+{% block content %}
+
+<!-- Header -->
+<header id="header" class="header">
+    <div class="header-content-app">
+
+    </div> <!-- end of header-content -->
+</header> <!-- end of header -->
+    <!-- end of header -->
+
+<div class="form-content" style="padding-bottom:50px;">
+    <div class="container">
+        <!--<form id="text_input" data-toggle="validator" data-focus="false">-->
+            <div class="row justify-content-center" style="padding-top:15px;">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">IoT Data</th>
+                            <th scope="col">Generated Text</th>
+                            <th scope="col">Submission Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for submission in history %}    
+                            <tr>
+                                <td>{{ submission.iot }}</td>
+                                <td>{{ submission.generated_text }}</td>
+                                <td>{{ submission.submission_date }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        <!-- </form> end of form 
+
+        <div class="row justify-content-center" style="padding-top:20px;">
+            
+        </div>
+    </div> <!-- end of container -->
+</div> <!-- end of form content -->
+{% endblock %}
+
+{% block scripts %}
+{{ block.super }}
+    <!--<script src="{% static 'js/editor.js' %}"></script>  Text Editor -->\
+    <script src="{% static 'js/textgen.js' %}"></script> <!-- Text API Stuff -->
+{% endblock %}

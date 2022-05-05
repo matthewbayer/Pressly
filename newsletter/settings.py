@@ -17,6 +17,8 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+import mimetypes
+mimetypes.add_type("text/css", ".css", True)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -26,7 +28,8 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", 'django-insecure-hwg24wb3e0k$22
 API_KEY = os.environ.get('API_KEY', '')
 GOOSE_API_KEY = os.environ.get('GOOSE_API_KEY', '')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+#DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+DEBUG = False
 
 ALLOWED_HOSTS = ['obscure-dusk-61210.herokuapp.com', '127.0.0.1']
 
@@ -181,15 +184,6 @@ DATABASES['default'].update(db_from_env)
 
 RQ_QUEUES = {
     'default': {
-        'PASSWORD': 'presslyredisftw',
-        'URL': os.getenv('REDISTOGO_URL', 'redis://localhost:6379/0'), # If you're on Heroku
-    },
-    'high': {
-        'PASSWORD': 'presslyredisftw',
-        'URL': os.getenv('REDISTOGO_URL', 'redis://localhost:6379/0'), # If you're on Heroku
-    },
-    'low': {
-        'PASSWORD': 'presslyredisftw',
-        'URL': os.getenv('REDISTOGO_URL', 'redis://localhost:6379/0'), # If you're on Heroku
+        'URL': "rediss://:WPJVKQt0LVSy1k26RzvrBYalGCGhB4gVqAzCaN8AtNY=@cowtools.redis.cache.windows.net:6380",
     }
 }

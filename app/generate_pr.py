@@ -1,98 +1,132 @@
 from newsletter.settings import TEXT_GEN_PARAMETERS as parameters, API_KEY, GOOSE_API_KEY, DEBUG
-from .generation_templates import press_release_template
+from .generation_templates import cow_template
 from .models import PressReleaseSubmission
 from asgiref.sync import sync_to_async
 from django_rq import job
+
+from azureml.exceptions import WebserviceException
+from azureml.core.webservice import AksWebservice
+from azureml.core import Workspace
+from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient
 
 import json
 import requests
 import time
 import asyncio
+import os
 from datetime import datetime
-import nlpcloud
-import openai
-
-openai.api_key = GOOSE_API_KEY
-openai.api_base = "https://api.goose.ai/v1"
 
 
-#client = nlpcloud.Client("gpt-j", API_KEY, gpu=True)
+ws = Workspace(subscription_id="9d325419-073c-4e8f-a44e-a0479cf3d9ac",
+            resource_group="FInalProject",
+            workspace_name="5412-gpt2workspace")
+connect_str = os.getenv('AZURE_STORAGE_CONNECTION_STRING')
+
+# Create the BlobServiceClient object which will be used to create a container client
+blob_service_client = BlobServiceClient.from_connection_string(connect_str)
+
+# Create the container
+container_client = blob_service_client.get_container_client("eventhub-logs")
+
+
+try:
+    service = AksWebservice(workspace=ws, name='gptjsesrvice')
+except WebserviceException:
+    service = None
 
 
 def format_line(idx, text):
     return str(idx) + ". " + text
 
 def get_pr_prompt(request):
-    data = json.loads(request.body.decode('UTF-8'))
-    details = data["company_descriptions"] + "\n" + data["pr_details"]
-
-    location = data['location']
-    loc_split = location.split(",")
-    if len(loc_split) > 1:
-        loc_split[0] = loc_split[0].upper()
-        location = ','.join(loc_split)
-    else:
-        location = location.upper()
-
-    try:
-        submitted_date = datetime.strptime(data["date"], "%m/%d/%Y")
-    except ValueError: # Fallback to today's date
-        submitted_date = datetime.now()
-    
-    date_formatted = submitted_date.strftime("%b %-d, %Y")
-
     submission_attrs = {
-        'title':data["title"],
-        'details':details,
-        'location':location,
-        'release_date':date_formatted
+        'iot':get_latest_status()
     }
 
-    prompt = press_release_template.format(**submission_attrs)
+    prompt = cow_template.format(**submission_attrs)
     #print(prompt)
 
     # reformat for postprocessing
-    submission_attrs["release_date"] = submitted_date
-    submission_attrs["company_descriptions"] = data["company_descriptions"]
-    submission_attrs["details"] = data["pr_details"]
-    print(prompt)
     return prompt, submission_attrs
+
+def get_latest_status():
+    blobs_list = container_client.list_blobs()
+    blob_names = []
+    for blob in blobs_list:
+        blob_names.append(blob.name)
+    blob_names = sorted(blob_names, key=lambda x : os.path.basename(x))
+    latest = blob_names[-1]
+    blob_client = container_client.get_blob_client(latest)
+    file_str = blob_client.download_blob().readall().decode("utf-8")
+    body_start = file_str.rfind('"Body":') + len('"Body":')
+    body = file_str[body_start:-1]
+    return body
 
 def generate_from_prompt(prompt):
     #result = client.generation(str(prompt), top_k=parameters["top_k"], length_no_input=True, max_length=parameters["max_length"], top_p=parameters["top_p"], temperature=parameters["temperature"], repetition_penalty=parameters["repetition_penalty"])
     #generated = result["generated_text"]
-    completion = openai.Completion.create(
-        engine="gpt-neo-20b",
-        prompt=prompt,
-        max_tokens=500,
-        temperature=1.1,
-        top_k=20,
-        top_p=0.7,
-        stream=False)
-    all_text = prompt + completion['choices'][0]['text']
-    result = {"generated_text": all_text}
-    start_idx = all_text.find("FOR IMMEDIATE RELEASE")
-    result["generated_text"] = result["generated_text"][start_idx:]
-    end_idx = result["generated_text"].find("<|endoftext|>")
-    if end_idx != -1:
-        result["generated_text"] = result["generated_text"][:end_idx]
-    result["generated_text"] = result["generated_text"].replace("/PRNewswire/ ", '')
+    if service is None:
+        return None
+    scoring_uri = service.scoring_uri
+    primary, _ = service.get_keys()
+    key = primary
+    
+    input_data = {
+        "data":
+        [
+            {"text":prompt}
+        ]
+    }
+    print(input_data)
+
+    # Set the content type
+    headers = {'Content-Type': 'application/json'}
+    # If authentication is enabled, set the authorization header
+    headers['Authorization'] = f'Bearer {key}'
+
+    print("making request...")
+    start = time.time()
+    # Make the request and display the response
+    resp = requests.post(scoring_uri, json.dumps(input_data), headers=headers)
+    print(resp.text)
+    res = resp.text
+    res = res.replace("\\n", "\n")
+    start = res.rfind("Actions needed:")
+    res = res[start:]
+
+    newline = res.find("\n")
+    if newline != -1:
+        res = res[:newline]
+
+
+    elapsed = time.time() - start
+    print(elapsed)
+    
+    result = {"generated_text": res}
     return result
 
 @job
-def generate_press_release(prompt, submission_id, test_delay=6):
+def generate_press_release(prompt, submission_id, test_delay=1):
     """
     Call external API to generate text for press release. Requires submission_id refers
     to a real PressReleaseSubmission object, else raises ObjectDoesNotExist
     """
     submission = PressReleaseSubmission.objects.get(submission_id=submission_id)
+    iot_start = prompt.rfind("Previous activities:")
+    iot_end = prompt.rfind("Actions needed:")
+    
+    submission.iot = prompt[iot_start + len("Previous activities:"):iot_end]
+    submission.save()
     user = submission.user
-    print("begin")
+    print(DEBUG)
     try:
         if not DEBUG:
-            content = generate_from_prompt(prompt)
+            if service is None:
+               content = {"generated_text": "Error occurred: Unable to connect to text generation service."}
+            else:
+                content = generate_from_prompt(prompt)
         else:
-            content = {"generated_text": "test content\n\testing\nasdasfas\n\nabc123"}
+            content = {"generated_text": "Test123"}
             time.sleep(test_delay)
         content["generated_text"] = content["generated_text"].replace("\n", "\n")
         submission.generated_text = content["generated_text"]

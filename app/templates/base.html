@@ -5,9 +5,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token }}" />
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Tivo is a HTML landing page template built with Bootstrap to help you crate engaging presentations for SaaS apps and convert visitors into users.">
-    <meta name="author" content="Inovatik">
 
     <!-- OG Meta Tags to improve the way the post looks when you share the page on LinkedIn, Facebook, Google+ -->
 	<meta property="og:site_name" content="" /> <!-- website name -->
@@ -19,7 +16,7 @@
 	<meta property="og:type" content="article" />
 
     <!-- Website Title -->
-    <title>Pressly - Generate Press Releases</title>
+    <title>Cow Tools</title>
     
     <!-- Styles -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap&subset=latin-ext" rel="stylesheet">
@@ -59,7 +56,7 @@
         <div class="container-fluid">
 
             <!-- Image Logo -->
-            <a class="navbar-brand logo-image" href={% url "index" %}><img src="{% static 'images/Pressly.svg' %}" alt="alternative"></a> 
+            <a class="navbar-brand logo-image" href={% url "index" %}><img src="{% static 'images/cowtools.svg' %}" alt="alternative"></a> 
             
             <!-- Mobile Menu Toggle Button -->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -70,17 +67,17 @@
 
             <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav ms-auto">
-                    <!--<li class="nav-item">
-                        <a class="nav-link page-scroll" href="/">HOME <span class="sr-only">(current)</span></a>
+                    <li class="nav-item">
+                        <a class="nav-link page-scroll" href={% url "submit_data" %}>SUBMIT IOT DATA <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link page-scroll" href="#features">FEATURES</a>
+                        <a class="nav-link page-scroll" href={% url "app" %}>GENERATE TEXT</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link page-scroll" href="#details">DETAILS</a>
-                    </li>-->
+                            <a class="nav-link page-scroll" href={% url "history" %}>VIEW HISTORY</a>
+                        </li>
 
-                    <!-- Dropdown Menu -->          
+                    <!-- Dropdown Menu         
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle page-scroll" href="#video" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">ABOUT</a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -88,7 +85,7 @@
                             <div class="dropdown-items-divide-hr"></div>
                             <a class="dropdown-item" href={% url "privacy" %}><span class="item-text">PRIVACY POLICY</span></a>
                         </div>
-                    </li>
+                    </li> --> 
                     <!-- end of dropdown menu -->
 
                     <!--<li class="nav-item">

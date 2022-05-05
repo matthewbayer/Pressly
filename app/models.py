@@ -43,24 +43,15 @@ class PressReleaseSubmission(models.Model):
     submission_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     submission_status = models.CharField(choices=StatusChoices.choices, default=StatusChoices.PENDING, max_length=255)
     error_msg = models.TextField(null=True)
-    release_date = models.DateField(null=True)
-    location = models.TextField(null=True)
-    title = models.TextField(null=True)
-    company_descriptions = models.TextField(null=True)
-    details = models.TextField(null=True)
+    iot = models.TextField(null=True)
     generated_text = models.TextField(null=True)
     submission_date = models.DateTimeField(null=True)
     user = models.ForeignKey(CustomUser, null=True, on_delete=models.SET_NULL, verbose_name="user who submitted")
-    rating = models.BooleanField(null=True, verbose_name="whether or not the user gave the generation a thumbs up")
     REQUIRED_FIELDS = [
         "generated_text",
         "submission_date",
         "user",
-        "release_date",
-        "location",
-        "title",
-        "company_descriptions",
-        "details"
+        "iot"
     ]
 
     objects = SubmissionManager()

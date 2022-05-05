@@ -2,13 +2,6 @@
 {% load static %}
 
 
-{% block css %}
-    <link href= "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css">
-{% endblock %}
-
-{% block above-nav %}
-{% endblock %}
-
 {% block app %}
 {% endblock %}
 
@@ -17,70 +10,41 @@
 <!-- Header -->
 <header id="header" class="header">
     <div class="header-content-app">
+
     </div> <!-- end of header-content -->
 </header> <!-- end of header -->
     <!-- end of header -->
 
-
-
 <div class="form-content" style="padding-bottom:50px;">
     <div class="container">
-        <form method="" id="text_input" data-toggle="validator" data-focus="false">
+        <!--<form id="text_input" data-toggle="validator" data-focus="false">-->
             <div class="row justify-content-center" style="padding-top:15px;">
                 <div class = "col-sm-10">
                     <div class="form-box d-flex align-items-center">
-                        <div class = "row justify-content-between"style="width:100%;">
-                            <div class = "col-sm-6 text-center">
-                                    <label class="h5 control-label  col-md-8 margin_label">Release Location</label>
-                                    <textarea id="location" name="release_location" class="form-control addl_notes2 custom-editor-sm" maxlength="40" placeholder = "Boston, MA"></textarea>
-                            </div>
-                            <div class = "col-sm-6 text-center">
-                                    <label class="h5 control-label col-md-8 margin_label">Release Date</label>
-                                    <input id="date" name="release_date" class="form-control addl_notes2 custom-editor-sm date" data-provide="datepicker" maxlength="15" placeholder ="01/01/2000"></textarea>
-                            </div>
-                        </div>    
-                        <label class="h3 control-label col-md-8 margin_label">Press Release Title</label>
-                        <textarea id="pr_title" name="company_description" class="form-control addl_notes2 custom-editor" maxlength="10000" placeholder = "Acme reports strong growth in Q1..."></textarea>
-                        <span class="help-block" id="help-block">Max 100 characters</span>
-                        <br>
-                        <label class="h3 control-label col-md-8 margin_label">Company Description(s)</label>
-                        <textarea id="description" name="company_description" class="form-control addl_notes2 custom-editor" maxlength="30000" placeholder = "Acme Inc. is a multinational corporation serving..."></textarea>
-                        <span class="help-block" id="help-block">Max 300 characters</span>
-                        <br>
-                        <label class="h3 control-label col-md-8 margin_label">Press Release Key Messages</label>
-                        <textarea id="notes" name="pr_details" class="form-control addl_notes custom-editor" maxlength="100000" placeholder = "Added 500 customers in the past year..."></textarea>
-                        <span class="help-block" id="help-block">Max 1000 characters</span>
-                        <button type="button" id="sample-generate-btn" class="btn btn-secondary next-step submit_notes"{% if not email_confirmed %} disabled {%endif%}>Try an example</button>
-                        <button type="button" id="generate-btn" class="btn btn-primary next-step submit_notes"{% if disabled or not email_confirmed %} disabled {%endif%}>
+                            <div class="col d-flex justify-content-center">
+                                    <textarea id="txtEditor" class="custom-editor" placeholder="Your content will appear here..."></textarea>
+                            </div><!-- end of col -->
+                        <button id="generate-btn" class="btn btn-primary next-step submit_notes"{% if disabled %} disabled {%endif%}>
                             <span id="submit-btn-spinner" role="status"></span>
                             <span id="generate-btn-text">Generate Text</span>
                         </button>
                         <div class="help-block with-errors">
-                                {% if not email_confirmed %}
-                                    <p id="credits_left" style="color: red">Please confirm your account email to begin using the app.</p>
+                                {% if disabled %}
+                                    <p style="color: red">Out of generation credits. Increase your plan or contact support.</p>
                                 {% else %}
-                                    {% if disabled %}
-                                        <p id="credits_left" style="color: red">Out of generation credits. Increase your plan or contact support.</p>
-                                    {% else %}
-                                        <p id="credits_left" style="color: grey">Uses 1 generation credit. Credits left: {{num_credits}}</p>
-                                    {% endif %}
-                                    {% endif %}
+                                    <p id="credits_left" style="color: grey">Uses 1 generation credit. Credits left: {{num_credits}}</p>
+                                {% endif %}
                                 {% if error %}
                                     <b><p style="color: grey">{{ error }}</p></b>
                                 {% endif %}
                         </div>
-                        <div id="progress-full" class="progress" style="width:100%" hidden>
-                            <div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
                     </div>
                 </div>
             </div>
-        </form> <!-- end of form -->
+        <!-- </form> end of form 
 
         <div class="row justify-content-center" style="padding-top:20px;">
-            <div class="col d-flex justify-content-center">
-                    <textarea id="txtEditor" class="custom-editor" placeholder="Your content will appear here..."></textarea>
-            </div><!-- end of col -->
+            
         </div>
     </div> <!-- end of container -->
 </div> <!-- end of form content -->
@@ -88,9 +52,5 @@
 
 {% block scripts %}
 {{ block.super }}
-    <!--<script src="{% static 'js/editor.js' %}"></script>  Text Editor -->\
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-
     <script src="{% static 'js/textgen.js' %}"></script> <!-- Text API Stuff -->
 {% endblock %}
-

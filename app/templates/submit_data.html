@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block css %}
+    <link href= "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block above-nav %}
+{% endblock %}
+
+{% block app %}
+{% endblock %}
+
+{% block content %}
+
+<!-- Header -->
+<header id="header" class="header">
+    <div class="header-content-app">
+    </div> <!-- end of header-content -->
+</header> <!-- end of header -->
+    <!-- end of header -->
+
+
+
+<div class="form-content" style="padding-bottom:50px;">
+    <div class="container">
+        <form method="" id="text_input" data-toggle="validator" data-focus="false">
+            <div class="row justify-content-center" style="padding-top:15px;">
+                <div class = "col-sm-10">
+                    <div class="form-box d-flex align-items-center">
+                        <label class="h3 control-label col-md-8 margin_label">Mock IoT Cow Status</label>
+                        <textarea id="notes" name="pr_details" class="form-control addl_notes custom-editor" maxlength="100" placeholder = "Sleeping..."></textarea>
+                        <span class="help-block" id="help-block">Max 100 characters</span>
+                        <button type="button" id="sample-generate-btn" class="btn btn-secondary next-step submit_notes"{% if not email_confirmed %} disabled {%endif%}>Try an example</button>
+                        <button type="button" id="generate-btn" class="btn btn-primary next-step submit_notes"{% if disabled or not email_confirmed %} disabled {%endif%}>
+                            <span id="submit-btn-spinner" role="status"></span>
+                            <span id="generate-btn-text">Submit Data</span>
+                        </button>
+                        <div class="help-block with-errors">
+                                {% if not email_confirmed %}
+                                    <p id="credits_left" style="color: red">Please confirm your account email to begin using the app.</p>
+                                {% endif %}
+                                {% if error %}
+                                    <b><p style="color: grey">{{ error }}</p></b>
+                                {% endif %}
+                        </div>
+                        <div id="progress-full" class="progress" style="width:100%" hidden>
+                            <div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form> <!-- end of form -->
+    </div> <!-- end of container -->
+</div> <!-- end of form content -->
+{% endblock %}
+
+{% block scripts %}
+{{ block.super }}
+    <!--<script src="{% static 'js/editor.js' %}"></script>  Text Editor -->\
+    <script src="{% static 'js/submitdata.js' %}"></script> <!-- Text API Stuff -->
+{% endblock %}
+

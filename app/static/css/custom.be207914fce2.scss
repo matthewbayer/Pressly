@@ -1,0 +1,12 @@
+/* import the necessary Bootstrap files */
+@import "bootstrap/functions";
+@import "bootstrap/variables";
+
+/* -------begin customization-------- */   
+
+/* simply assign the value */ 
+$enable-shadows: true;
+/* -------end customization-------- */  
+
+/* finally, import Bootstrap to set the changes! */
+@import "bootstrap";
