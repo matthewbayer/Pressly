@@ -31,7 +31,7 @@ GOOSE_API_KEY = os.environ.get('GOOSE_API_KEY', '')
 #DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*', '169.254.129.3']
 
 
 # Application definition
