@@ -9,6 +9,7 @@ from azureml.core.webservice import AksWebservice
 from azureml.core import Workspace
 from azure.identity import ManagedIdentityCredential
 from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient
+from azureml.core.authentication import MsiAuthentication
 
 import json
 import requests
@@ -19,12 +20,12 @@ from datetime import datetime
 
 print("start cred")
 credential = ManagedIdentityCredential(managed_identity_client_id="5d738578-badc-4506-805a-8a19c4054644")
-
+msi_auth = MsiAuthentication()
 print("start workspace")
 ws = Workspace(subscription_id="9d325419-073c-4e8f-a44e-a0479cf3d9ac",
             resource_group="FInalProject",
             workspace_name="5412-gpt2workspace",
-            auth=credential)
+            auth=msi_auth)
 #connect_str = os.getenv('AZURE_STORAGE_CONNECTION_STRING')
 print("workspace done")
 AZURE_STORAGE_CONNECTION_STRING = 'DefaultEndpointsProtocol=https;AccountName=cs5412meb287;AccountKey=kOm8hJLfPMc+doOA5t+7zHiG9Fi/Zbuw4Lv0syyQVkEhM58uLCTfiOEKzHrfLw+zJba5CfmlTMva+AStOXm4wg==;EndpointSuffix=core.windows.net'
