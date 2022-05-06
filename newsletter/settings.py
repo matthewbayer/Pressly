@@ -32,7 +32,7 @@ GOOSE_API_KEY = os.environ.get('GOOSE_API_KEY', '')
 DEBUG = False
 
 ALLOWED_HOSTS = ['*', '169.254.129.3', os.environ.get("WEBSITE_HOSTNAME", "")]
-CSRF_TRUSTED_ORIGINS = ['*', "https://cowtools.azurewebsites.net"]
+CSRF_TRUSTED_ORIGINS = ['https://*', 'http://*', "https://cowtools.azurewebsites.net"]
 
 # Application definition
 
