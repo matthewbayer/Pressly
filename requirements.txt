@@ -61,7 +61,6 @@ grpcio==1.44.0
 grpcio-tools==1.38.1
 gunicorn==20.1.0
 httptools==0.4.0
-huggingface-hub==0.5.1
 humanfriendly==10.0
 idna==3.3
 importlib-metadata==4.11.3
@@ -104,7 +103,6 @@ pkginfo==1.8.2
 portalocker==2.4.0
 protobuf==3.17.3
 psutil==5.9.0
-psycopg2==2.8.6
 py-cpuinfo==8.0.0
 py3nvml==0.2.7
 pyasn1==0.4.8
@@ -140,7 +138,6 @@ tabulate==0.8.9
 termcolor==1.1.0
 tokenizers==0.12.1
 tqdm==4.64.0
-transformers==4.18.0
 tritonclient==2.11.0
 typing-extensions==3.10.0.2
 uamqp==1.5.3
