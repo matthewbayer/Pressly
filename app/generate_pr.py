@@ -16,7 +16,7 @@ import asyncio
 import os
 from datetime import datetime
 
-
+print("start workspace")
 ws = Workspace(subscription_id="9d325419-073c-4e8f-a44e-a0479cf3d9ac",
             resource_group="FInalProject",
             workspace_name="5412-gpt2workspace")
