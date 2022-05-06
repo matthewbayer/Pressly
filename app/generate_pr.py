@@ -21,14 +21,14 @@ ws = Workspace(subscription_id="9d325419-073c-4e8f-a44e-a0479cf3d9ac",
             resource_group="FInalProject",
             workspace_name="5412-gpt2workspace")
 #connect_str = os.getenv('AZURE_STORAGE_CONNECTION_STRING')
-
+print("workspace done")
 AZURE_STORAGE_CONNECTION_STRING = 'DefaultEndpointsProtocol=https;AccountName=cs5412meb287;AccountKey=kOm8hJLfPMc+doOA5t+7zHiG9Fi/Zbuw4Lv0syyQVkEhM58uLCTfiOEKzHrfLw+zJba5CfmlTMva+AStOXm4wg==;EndpointSuffix=core.windows.net'
 # Create the BlobServiceClient object which will be used to create a container client
 blob_service_client = BlobServiceClient.from_connection_string(AZURE_STORAGE_CONNECTION_STRING)
-
+print("blob done")
 # Create the container
 container_client = blob_service_client.get_container_client("eventhub-logs")
-
+print("container done")
 
 try:
     service = AksWebservice(workspace=ws, name='gptjsesrvice')
