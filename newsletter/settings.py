@@ -31,7 +31,7 @@ GOOSE_API_KEY = os.environ.get('GOOSE_API_KEY', '')
 #DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 DEBUG = False
 
-ALLOWED_HOSTS = ['obscure-dusk-61210.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
