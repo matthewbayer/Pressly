@@ -103,6 +103,7 @@ pkginfo==1.8.2
 portalocker==2.4.0
 protobuf==3.17.3
 psutil==5.9.0
+psycopg2-binary==2.9.3
 py-cpuinfo==8.0.0
 py3nvml==0.2.7
 pyasn1==0.4.8
