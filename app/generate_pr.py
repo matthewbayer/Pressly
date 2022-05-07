@@ -37,7 +37,7 @@ container_client = blob_service_client.get_container_client("eventhub-logs")
 print("container done")
 
 try:
-    service = AksWebservice(workspace=ws, name='gptjsesrvice')
+    service = AksWebservice(workspace=ws, name='gptjservice')
 except WebserviceException:
     service = None
 
