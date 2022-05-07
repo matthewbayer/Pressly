@@ -38,8 +38,10 @@ print("container done")
 
 try:
     service = AksWebservice(workspace=ws, name='gptjservice')
+    print("connected to aks")
 except WebserviceException:
     service = None
+    print("aks connection failed")
 
 
 def format_line(idx, text):
