@@ -49,7 +49,7 @@ def sign_up(request):
             email = form.cleaned_data.get('email')
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=email, password=raw_password)
-            send_confirmation_email(request, email, user)
+            #send_confirmation_email(request, email, user)
             login(request, user)
             return HttpResponseRedirect('/app/')
         else:
