@@ -100,7 +100,7 @@ def generate_from_prompt(prompt):
     print(resp.text)
     res = resp.text
     res = res.replace("\\n", "\n")
-    start = res.rfind("Actions needed:")
+    start = res.rfind("Recommendation for cow:")
     res = res[start:]
 
     newline = res.find("\n")
@@ -122,7 +122,7 @@ def generate_press_release(prompt, submission_id, test_delay=1):
     """
     submission = PressReleaseSubmission.objects.get(submission_id=submission_id)
     iot_start = prompt.rfind("Previous activities:")
-    iot_end = prompt.rfind("Actions needed:")
+    iot_end = prompt.rfind("Recommendation for cow:")
     
     submission.iot = prompt[iot_start + len("Previous activities:"):iot_end]
     submission.save()
