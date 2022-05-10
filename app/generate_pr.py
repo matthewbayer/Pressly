@@ -121,10 +121,10 @@ def generate_press_release(prompt, submission_id, test_delay=1):
     to a real PressReleaseSubmission object, else raises ObjectDoesNotExist
     """
     submission = PressReleaseSubmission.objects.get(submission_id=submission_id)
-    iot_start = prompt.rfind("Previous activities:")
+    iot_start = prompt.rfind("Cow status: ")
     iot_end = prompt.rfind("Recommendation for cow:")
     
-    submission.iot = prompt[iot_start + len("Previous activities:"):iot_end]
+    submission.iot = prompt[iot_start + len("Cow status: "):iot_end]
     submission.save()
     user = submission.user
     print(DEBUG)
